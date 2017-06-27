@@ -167,7 +167,7 @@ export default class ExchangeScreen extends Component {
       firstOhlc = ohlc[0];
       lastPriceAvg = candleMean(lastOhlc);
       firstPriceAvg = candleMean(firstOhlc);
-      changePercent = (1 - (firstPriceAvg / lastPriceAvg)) * 100;
+      changePercent = ((lastPriceAvg - firstPriceAvg) / firstPriceAvg) * 100;
       changeAbsolute = lastPriceAvg - firstPriceAvg;
     }
 

@@ -1,9 +1,10 @@
 import React, { PureComponent, PropTypes } from 'react';
-import { View, StyleSheet, Text, TextInput } from 'react-native';
+import { View, StyleSheet, Text, TextInput, Picker } from 'react-native';
 import { connect } from 'react-redux';
 import currencySymbol from 'currency-symbol-map';
 import { toUpper, find, round, clamp } from 'lodash';
 
+import { exchanges } from '../../config';
 import Prompt from '../Prompt';
 import { openAddPrompt, create, closeAddPrompt } from '../../actions/portfolio';
 
@@ -34,6 +35,9 @@ export default class AddStackPrompt extends PureComponent {
       editingPrice: false,
       tempStackAmount: 0,
       tempBoughtPrice: '',
+      currency: 'usd',
+      crypto: 'eth',
+      exchange: exchanges[0].id,
     };
   }
 
@@ -52,7 +56,7 @@ export default class AddStackPrompt extends PureComponent {
   handleBoughtPriceInputEnd = () => {
     const { tempBoughtPrice, editingPrice } = this.state;
     if (editingPrice) {
-      const newBoughtPrice = Number(String(tempBoughtPrice).replace(',', '.'));
+      const newBoughtPrice = Number(String(tempBoughtPrice).replace(',', '.')) || 0;
       this.setState({ BoughtPrice: clamp(newBoughtPrice, 0.0001, 9999999), editingPrice: false });
     }
   }
@@ -62,13 +66,17 @@ export default class AddStackPrompt extends PureComponent {
   }
 
   handleCreate = () => {
-    const { StackAmount, BoughtPrice } = this.state;
-    // this.props.create(StackAmount, BoughtPrice, currency, crypto);
+    const { StackAmount, BoughtPrice, currency, crypto, tempBoughtPrice, exchange, tempStackAmount } = this.state;
+    const amount = StackAmount || Number(String(tempStackAmount).replace(',', '.'));
+    const price = BoughtPrice || Number(String(tempBoughtPrice).replace(',', '.'));
+    if (amount && price) {
+      this.props.create(amount, price, currency, crypto, exchange);
+    }
   }
 
   render() {
     const { visible, closeAddPrompt } = this.props;
-    const { StackAmount, editing, editingPrice, tempStackAmount, tempBoughtPrice, BoughtPrice } = this.state;
+    const { StackAmount, editing, editingPrice, tempStackAmount, tempBoughtPrice, BoughtPrice, currency, crypto, exchange } = this.state;
     // const upperCrypto = toUpper(crypto);
 
     return (
@@ -78,20 +86,27 @@ export default class AddStackPrompt extends PureComponent {
         title="Create portfolio stack"
         options={[{ label: 'Cancel' }, { label: 'Create', onPress: this.handleCreate }]}
       >
-        <Text><Text style={styles.bold}>Available:</Text> 123</Text>
         <View style={styles.inputInline}>
           <Text style={styles.bold}>Amount bought:</Text>
           <TextInput
-            placeholder={String(StackAmount)}
             onEndEditing={this.handleStackAmountInputEnd}
             style={styles.alertTextInput}
             keyboardType="numeric"
-            maxLength={8}
+            maxLength={10}
             onChange={() => this.setState({ editing: true })}
             onChangeText={this.handleNewAmountChange}
             value={editing ? tempStackAmount : String(StackAmount)}
           />
-          <Text style={styles.bold}>ETH</Text>
+          <Picker
+            style={{ width: 100 }}
+            selectedValue={crypto}
+            onValueChange={crypto => this.setState({ crypto })}
+            mode="dropdown"
+          >
+            <Picker.Item label="ETH" value="eth" />
+            <Picker.Item label="BTC" value="btc" />
+          </Picker>
+          {/*<Text style={styles.bold}>ETH</Text>*/}
         </View>
 
         <View style={styles.inputInline}>
@@ -100,12 +115,36 @@ export default class AddStackPrompt extends PureComponent {
             onEndEditing={this.handleBoughtPriceInputEnd}
             style={styles.alertTextInput}
             keyboardType="numeric"
-            maxLength={8}
+            maxLength={7}
             onChange={() => this.setState({ editingPrice: true })}
             onChangeText={this.handleBoughtPriceChange}
             value={editingPrice ? tempBoughtPrice : String(BoughtPrice)}
           />
-          <Text style={styles.bold}>EUR</Text>
+          <Picker
+            style={{ width: 100 }}
+            selectedValue={currency}
+            onValueChange={currency => this.setState({ currency })}
+            mode="dropdown"
+          >
+            <Picker.Item label="USD" value="usd" />
+            <Picker.Item label="EUR" value="eur" />
+          </Picker>
+          {/*<Text style={styles.bold}>EUR</Text>*/}
+        </View>
+
+        <View style={styles.inputInline}>
+          <Text style={styles.bold}>Exchange:</Text>
+          <Picker
+            style={{ width: 170 }}
+            selectedValue={exchange}
+            onValueChange={exchange => this.setState({ exchange })}
+            mode="dropdown"
+          >
+            {Object.values(exchanges).map(e =>
+              <Picker.Item key={e.id} label={e.name} value={e.id} />,
+            )}
+          </Picker>
+          {/*<Text style={styles.bold}>EUR</Text>*/}
         </View>
       </Prompt>
     );

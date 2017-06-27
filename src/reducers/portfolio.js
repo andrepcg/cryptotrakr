@@ -5,18 +5,18 @@ import { CREATE_ENTRY, DELETE_ENTRY, SPLIT_ENTRY, STACK_ENTRIES, SELL_ENTRY, DEL
 
 const initialState = {
   portfolio: {
-    id123: {
-      id: 'id123',
-      amount: 0.1,
-      boughtPrice: 123,
-      currency: 'usd',
-      crypto: 'eth',
-      timestamp: new Date().valueOf(),
-      exchange: 'coinbase',
-      positionOpened: true,
-      sellTimestamp: null,
-      sellPrice: null,
-    },
+    // id123: {
+    //   id: 'id123',
+    //   amount: 0.1,
+    //   boughtPrice: 123,
+    //   currency: 'usd',
+    //   crypto: 'eth',
+    //   timestamp: new Date().valueOf(),
+    //   exchange: 'coinbase',
+    //   positionOpened: true,
+    //   sellTimestamp: null,
+    //   sellPrice: null,
+    // },
   },
   addPromptVisible: false,
 };
@@ -33,7 +33,7 @@ function stackEntries(portfolio, idsArray) {
   };
 }
 
-const stackInitialState = {
+const stackInitialState = () => ({
   id: uuid(),
   timestamp: new Date().valueOf(),
   positionOpened: true,
@@ -44,9 +44,9 @@ const stackInitialState = {
   // currency: 'usd',
   // crypto: 'eth',
   // exchange: 'coinbase',
-};
+});
 
-function stack(state = stackInitialState, action) {
+function stack(state = stackInitialState(), action) {
   switch (action.type) {
     case CREATE_ENTRY:
       return { ...state, ...action.payload };
@@ -73,10 +73,11 @@ function portfolio(state = initialState.portfolio, action) {
     }
 
     case DELETE_SALE: {
-      if (action.payload.deleteSale) {
+      if (action.payload.deleteStack) {
         return omit(state, [action.payload.id]);
+      } else {
+        return { ...state, [action.payload.id]: stack(state[action.payload], action) };
       }
-      return { ...state, [action.payload]: stack(state[action.payload], action) };
     }
 
     case DELETE_ENTRY:
@@ -84,19 +85,19 @@ function portfolio(state = initialState.portfolio, action) {
 
     case SPLIT_ENTRY: {
       const { id, newStackAmount } = action.payload;
-      const { boughtPrice, currency, crypto, exchange } = state.portfolio[id];
-      const newStack = { ...stackInitialState, boughtPrice, currency, crypto, exchange, amount: newStackAmount };
+      const { boughtPrice, currency, crypto, exchange } = state[id];
+      const newStack = { ...stackInitialState(), boughtPrice, currency, crypto, exchange, amount: newStackAmount };
       return {
         ...state,
-        [id]: stack(state.portfolio[id], action),
+        [id]: stack(state[id], action),
         [newStack.id]: newStack,
       };
     }
 
     case STACK_ENTRIES: {
-      const newEntry = stackEntries(state.portfolio, action.payload);
+      const newEntry = stackEntries(state, action.payload);
       return {
-        ...omit(state.portfolio, action.payload),
+        ...omit(state, action.payload),
         [newEntry.id]: newEntry,
       };
     }
@@ -108,11 +109,8 @@ function portfolio(state = initialState.portfolio, action) {
       const sellTimestamp = new Date().valueOf();
       const newStack = {
         ...state[id],
-        ...stackInitialState,
-        // boughtPrice,
-        // currency,
-        // crypto,
-        // exchange,
+        ...stackInitialState(),
+        id: uuid(),
         positionOpened: false,
         amount: amountSold,
         sellTimestamp,

@@ -55,7 +55,7 @@ export default class PortfolioSaleCard extends PureComponent {
     const { amount, boughtPrice, currency, crypto, sellTimestamp, sellPrice, exchangeId } = this.props;
     const sellValue = amount * sellPrice;
     const appreciationAbsolute = sellPrice - boughtPrice;
-    const changePercent = (1 - (boughtPrice / sellPrice)) * 100;
+    const changePercent = ((sellPrice - boughtPrice) / boughtPrice) * 100;
     const symbol = currencySymbol(currency);
     const exchange = find(exchanges, { id: exchangeId });
 

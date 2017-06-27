@@ -18,8 +18,8 @@ const migration = createMigration(manifest, 'app');
 export default function configureStore(onPersist) {
   const enhancer = compose(
     applyMiddleware(thunkMiddleware, analyticsMiddleware),
-    // migration,
-    // autoRehydrate(),
+    migration,
+    autoRehydrate(),
     devTools({
       name: 'crypto-trakr', realtime: true,
     }),

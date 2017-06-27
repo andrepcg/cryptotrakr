@@ -28,11 +28,11 @@ export default class SellPrompt extends PureComponent {
 
   clearState() {
     return {
-      sellAmount: minValue(this.props.stackAmount),
+      sellAmount: this.props.stackAmount,
       sellPrice: 0,
       editing: false,
       editingPrice: false,
-      tempSellAmount: minValue(this.props.stackAmount),
+      tempSellAmount: this.props.stackAmount,
       tempSellPrice: '',
     };
   }
@@ -64,8 +64,12 @@ export default class SellPrompt extends PureComponent {
   }
 
   handleSell = () => {
-    const { sellAmount, sellPrice } = this.state;
-    this.props.sellEntry(sellAmount, sellPrice);
+    const { sellAmount, sellPrice, tempSellAmount, tempSellPrice } = this.state;
+    const amount = sellAmount || Number(String(tempSellAmount).replace(',', '.'));
+    const price = sellPrice || Number(String(tempSellPrice).replace(',', '.'));
+    if (amount && price) {
+      this.props.sellEntry(sellAmount, sellPrice);
+    }
   }
 
   render() {

@@ -78,8 +78,8 @@ export default class PortfolioCard extends PureComponent {
   }
 
   handleSell = (amount, price) => {
-    // TODO: price and amount to sale
-    this.props.sellEntry(this.props.id, this.props.amount, 123);
+    this.props.sellEntry(this.props.id, amount, price);
+    this.handleCloseSellPrompt();
   }
 
   render() {
@@ -87,7 +87,7 @@ export default class PortfolioCard extends PureComponent {
     const { amount, boughtPrice, currency, crypto, timestamp, currentPrice, exchangeId } = this.props;
     const currentValue = amount * currentPrice;
     const appreciationAbsolute = currentPrice - boughtPrice;
-    const changePercent = (1 - (boughtPrice / currentPrice)) * 100;
+    const changePercent = (appreciationAbsolute / boughtPrice) * 100;
     const symbol = currencySymbol(currency);
     const exchange = find(exchanges, { id: exchangeId });
 
@@ -122,7 +122,7 @@ export default class PortfolioCard extends PureComponent {
           <View>
             <View style={[styles.appreciation, appreciationAbsolute < 0 ? styles.red : styles.green]}>
               <Text style={[styles.appreciationFont, styles.bold]}>
-                {`${changePercent > 0 ? '+' : ''}${round(changePercent, 3)}%`}
+                {`${appreciationAbsolute > 0 ? '+' : ''}${round(changePercent, 3)}%`}
               </Text>
             </View>
           </View>
