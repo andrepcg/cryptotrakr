@@ -56,6 +56,9 @@ export default class AppWithNavigationState extends Component {
     if (((new Date()) - lastReceiveTime) > FIVE_MINUTES) {
       dispatch(fetchPrices());
     }
+    else if (!lastReceiveTime) {
+      dispatch(fetchPrices());
+    }
   }
 
   authFirebase() {
