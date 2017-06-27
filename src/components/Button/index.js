@@ -25,6 +25,7 @@ export default function Button(props) {
     return (
       <TouchableOpacity
         {...passProps}
+        {...rest}
       >
         {children}
       </TouchableOpacity>
