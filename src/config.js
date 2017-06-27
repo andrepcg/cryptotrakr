@@ -27,16 +27,18 @@ export const pairs = [
   // { id: 'xrpbtc', name: 'XRP/BTC' },
 ];
 
-// export const cryptos = [
-//   { id: 'eth', name: 'ETH' },
-//   { id: 'btc', name: 'BTC' },
-//   { id: 'ltc', name: 'LTC' },
-// ];
+
+export const cryptos = [
+  { id: 'eth', name: 'ETH' },
+  { id: 'btc', name: 'BTC' },
+  { id: 'ltc', name: 'LTC' },
+  { id: 'xrp', name: 'XRP' },
+];
 
 export const currencies = [
   { id: 'usd', name: 'USD' },
   { id: 'eur', name: 'EUR' },
-  { id: 'gbp', name: 'GBP' },
+  // { id: 'gbp', name: 'GBP' },
 ];
 
 export const appName = 'Crypto Trakr';

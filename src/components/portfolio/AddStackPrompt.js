@@ -1,12 +1,17 @@
 import React, { PureComponent, PropTypes } from 'react';
-import { View, StyleSheet, Text, TextInput, Picker } from 'react-native';
+import { View, StyleSheet, Text, TextInput, Picker, Platform, ActionSheetIOS } from 'react-native';
 import { connect } from 'react-redux';
 import currencySymbol from 'currency-symbol-map';
 import { toUpper, find, round, clamp } from 'lodash';
 
-import { exchanges } from '../../config';
+import { exchanges, cryptos, currencies } from '../../config';
+import Button from '../Button';
 import Prompt from '../Prompt';
 import { openAddPrompt, create, closeAddPrompt } from '../../actions/portfolio';
+
+const cryptosActionSheetOptions = [...cryptos.map(c => c.name), 'Cancel'];
+const currenciesActionSheetOptions = [...currencies.map(c => c.name), 'Cancel'];
+const exchangesActionSheetOptions = [...exchanges.map(c => c.name), 'Cancel'];
 
 @connect(({
   portfolio: { addPromptVisible },
@@ -74,9 +79,114 @@ export default class AddStackPrompt extends PureComponent {
     }
   }
 
+  openCryptoActionSheet = () => {
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: cryptosActionSheetOptions,
+      cancelButtonIndex: cryptosActionSheetOptions.length - 1,
+      title: 'Choose a cryptocurrency',
+    }, (index) => {
+      if (index !== cryptosActionSheetOptions.length - 1) {
+        this.setState({ crypto: cryptos[index].id });
+      }
+    });
+  }
+
+  renderCryptoPicker() {
+    const { crypto } = this.state;
+    if (Platform.OS === 'android') {
+      return (
+        <Picker
+          style={{ width: 100 }}
+          selectedValue={crypto}
+          onValueChange={crypto => this.setState({ crypto })}
+          mode="dropdown"
+        >
+          {cryptos.map(c => <Picker.Item key={c.id} label={c.name} value={c.id} />)}
+        </Picker>
+      );
+    }
+    else {
+      return (
+        <Button onPressFunc={this.openCryptoActionSheet}>
+          <Text>{toUpper(crypto)}</Text>
+        </Button>
+      );
+    }
+  }
+
+  openCurrenciesActionSheet = () => {
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: currenciesActionSheetOptions,
+      cancelButtonIndex: currenciesActionSheetOptions.length - 1,
+      title: 'Choose a currency',
+    }, (index) => {
+      if (index !== currenciesActionSheetOptions.length - 1) {
+        this.setState({ currency: currencies[index].id });
+      }
+    });
+  }
+
+  renderCurrencyPicker() {
+    const { currency } = this.state;
+    if (Platform.OS === 'android') {
+      return (
+        <Picker
+          style={{ width: 100 }}
+          selectedValue={currency}
+          onValueChange={currency => this.setState({ currency })}
+          mode="dropdown"
+        >
+          {currencies.map(c => <Picker.Item key={c.id} label={c.name} value={c.id} />)}
+        </Picker>
+      );
+    }
+    else {
+      return (
+        <Button onPressFunc={this.openCurrenciesActionSheet}>
+          <Text>{toUpper(currency)}</Text>
+        </Button>
+      );
+    }
+  }
+
+  openExchangesActionSheet = () => {
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: exchangesActionSheetOptions,
+      cancelButtonIndex: exchangesActionSheetOptions.length - 1,
+      title: 'Choose an exchange',
+    }, (index) => {
+      if (index !== exchangesActionSheetOptions.length - 1) {
+        this.setState({ exchange: exchanges[index].id });
+      }
+    });
+  }
+
+  renderExchangePicker() {
+    const { exchange } = this.state;
+    if (Platform.OS === 'android') {
+      return (
+        <Picker
+          style={{ width: 150 }}
+          selectedValue={exchange}
+          onValueChange={exchange => this.setState({ exchange })}
+          mode="dropdown"
+        >
+          {exchanges.map(c => <Picker.Item key={c.id} label={c.name} value={c.id} />)}
+        </Picker>
+      );
+    }
+    else {
+      return (
+        <Button onPressFunc={this.openExchangesActionSheet}>
+          <Text>{find(exchanges, { id: exchange }).name}</Text>
+        </Button>
+      );
+    }
+  }
+
   render() {
     const { visible, closeAddPrompt } = this.props;
-    const { StackAmount, editing, editingPrice, tempStackAmount, tempBoughtPrice, BoughtPrice, currency, crypto, exchange } = this.state;
+    const { StackAmount, editing, editingPrice, tempStackAmount, tempBoughtPrice, BoughtPrice } = this.state;
     // const upperCrypto = toUpper(crypto);
 
     return (
@@ -87,26 +197,18 @@ export default class AddStackPrompt extends PureComponent {
         options={[{ label: 'Cancel' }, { label: 'Create', onPress: this.handleCreate }]}
       >
         <View style={styles.inputInline}>
-          <Text style={styles.bold}>Amount bought:</Text>
+          <Text style={styles.bold}>Qty bought:</Text>
           <TextInput
             onEndEditing={this.handleStackAmountInputEnd}
             style={styles.alertTextInput}
-            keyboardType="numeric"
+            keyboardType={Platform.OS === 'android' ? 'numeric' : 'default'}
             maxLength={10}
             onChange={() => this.setState({ editing: true })}
             onChangeText={this.handleNewAmountChange}
             value={editing ? tempStackAmount : String(StackAmount)}
+            returnKeyType="done"
           />
-          <Picker
-            style={{ width: 100 }}
-            selectedValue={crypto}
-            onValueChange={crypto => this.setState({ crypto })}
-            mode="dropdown"
-          >
-            <Picker.Item label="ETH" value="eth" />
-            <Picker.Item label="BTC" value="btc" />
-          </Picker>
-          {/*<Text style={styles.bold}>ETH</Text>*/}
+          {this.renderCryptoPicker()}
         </View>
 
         <View style={styles.inputInline}>
@@ -120,31 +222,12 @@ export default class AddStackPrompt extends PureComponent {
             onChangeText={this.handleBoughtPriceChange}
             value={editingPrice ? tempBoughtPrice : String(BoughtPrice)}
           />
-          <Picker
-            style={{ width: 100 }}
-            selectedValue={currency}
-            onValueChange={currency => this.setState({ currency })}
-            mode="dropdown"
-          >
-            <Picker.Item label="USD" value="usd" />
-            <Picker.Item label="EUR" value="eur" />
-          </Picker>
-          {/*<Text style={styles.bold}>EUR</Text>*/}
+          {this.renderCurrencyPicker()}
         </View>
 
         <View style={styles.inputInline}>
           <Text style={styles.bold}>Exchange:</Text>
-          <Picker
-            style={{ width: 170 }}
-            selectedValue={exchange}
-            onValueChange={exchange => this.setState({ exchange })}
-            mode="dropdown"
-          >
-            {Object.values(exchanges).map(e =>
-              <Picker.Item key={e.id} label={e.name} value={e.id} />,
-            )}
-          </Picker>
-          {/*<Text style={styles.bold}>EUR</Text>*/}
+          {this.renderExchangePicker()}
         </View>
       </Prompt>
     );
@@ -171,7 +254,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   alertTextInput: {
-    width: 100,
+    width: 80,
     marginRight: 10,
     marginLeft: 10,
     // flexGrow: 1,

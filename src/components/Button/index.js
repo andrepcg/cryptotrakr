@@ -4,7 +4,7 @@ import { TouchableNativeFeedback, View, TouchableOpacity, Platform } from 'react
 import { debounce } from 'lodash';
 
 export default function Button(props) {
-  const { onPressFunc, onLongPressFunc, children, ...rest } = props;
+  const { onPressFunc, onLongPressFunc, onPress, onLongPress, children, ...rest } = props;
 
   const passProps = {};
   if (onPressFunc) passProps.onPress = debounce(onPressFunc, 500, { leading: true, trailing: false });

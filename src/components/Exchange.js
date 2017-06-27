@@ -97,7 +97,7 @@ export default class Exchange extends PureComponent {
     const { crypto, currency } = this.state;
     const { high, low, favorite, volume } = this.props;
     return (
-      <Button style={styles.card} onPressFunc={this.openExchange}>
+      <Button style={styles.card} elevation={0} onPressFunc={this.openExchange}>
         <View style={styles.left}>
 
           <Button touchableOpacity onPressFunc={this.clickFavorite}>
