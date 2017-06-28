@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, Text } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { filter, get } from 'lodash';
@@ -10,11 +10,21 @@ import { create, deleteEntry, split, stack, sell } from '../actions/portfolio';
 import PortfolioCard from '../components/portfolio/PortfolioCard';
 import AddStackPrompt from '../components/portfolio/AddStackPrompt';
 
-@connect((
-  {
-    prices: { markets },
-    portfolio: { portfolio },
-  }) => ({ markets, portfolio }),
+import { GREY, DARKER_BLUE, LIGHT_BLUE, BLUE } from '../styles';
+
+function calcStats(entriesArray) {
+  // rentabilidade
+  // total investido €
+  const results = {
+    rentability: 0,
+    totalFiat: 0,
+  };
+}
+
+@connect(({
+  prices: { markets },
+  portfolio: { portfolio },
+}) => ({ markets, portfolio: filter(portfolio, { positionOpened: true }) }),
   { create, deleteEntry, split, stack, sell },
 )
 export default class Portfolio extends Component {
@@ -25,7 +35,7 @@ export default class Portfolio extends Component {
 
   static propTypes = {
     markets: PropTypes.object,
-    portfolio: PropTypes.object,
+    portfolio: PropTypes.array,
     create: PropTypes.func,
     deleteEntry: PropTypes.func,
     split: PropTypes.func,
@@ -47,7 +57,7 @@ export default class Portfolio extends Component {
     <PortfolioCard
       id={id}
       boughtPrice={boughtPrice}
-      currentPrice={get(this.props.markets, `[${crypto}${currency}][${exchange}].price.last`, 0)}
+      currentPrice={get(this.props.markets, `[${crypto}${currency}][${exchange}].price.last`, boughtPrice)}
       currency={currency}
       crypto={crypto}
       timestamp={timestamp}
@@ -57,14 +67,37 @@ export default class Portfolio extends Component {
       sellEntry={this.props.sell}
       exchangeId={exchange}
     />
-  );
+  )
+
+  renderStats () {
+    const stats = calcStats(this.props.portfolio);
+    return (
+      <View style={styles.stats} elevation={2}>
+        <View style={styles.multiline}>
+          <Text style={styles.content}>123</Text>
+          <Text style={styles.subtitle}>Avg. rentability</Text>
+        </View>
+
+        <View style={styles.multiline}>
+          <Text style={styles.content}>123</Text>
+          <Text style={styles.subtitle}>cenas</Text>
+        </View>
+
+        <View style={styles.multiline}>
+          <Text style={styles.content}>987</Text>
+          <Text style={styles.subtitle}>Since ()</Text>
+        </View>
+      </View>
+    );
+  }
 
   render() {
     return (
       <View style={styles.container}>
         <AddStackPrompt />
+        {this.renderStats()}
         <FlatList
-          data={filter(this.props.portfolio, { positionOpened: true })}
+          data={this.props.portfolio}
           renderItem={this._renderItem}
           keyExtractor={item => item.id}
         />
@@ -78,5 +111,27 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F0F0F0',
     // padding: 10,
+  },
+  stats: {
+    // backgroundColor: GREY,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    padding: 10,
+    backgroundColor: BLUE,
+  },
+  content: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  multiline: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  subtitle: {
+    fontSize: 11,
+    color: 'white',
   },
 });

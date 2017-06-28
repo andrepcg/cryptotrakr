@@ -44,3 +44,4 @@ export const currencies = [
 export const appName = 'Crypto Trakr';
 
 export const API_URL = 'https://cryptotrakr.herokuapp.com';
+export const CRYPTOWATCH_API_URL = 'https://api.cryptowat.ch';

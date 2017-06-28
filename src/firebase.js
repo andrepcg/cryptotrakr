@@ -9,7 +9,7 @@ const firebase = RNFirebase.initializeApp(configurationOptions);
 
 export default firebase;
 
-if(Platform.OS === 'ios')
+if (Platform.OS === 'ios')
   firebase.messaging().requestPermissions();
 
 if (__DEV__) {

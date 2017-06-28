@@ -1,7 +1,7 @@
 import { ToastAndroid, Platform } from 'react-native';
 import moment from 'moment';
 
-import { API_URL } from '../config';
+import { API_URL, CRYPTOWATCH_API_URL } from '../config';
 
 export function fetchMarketSummaries() {
   // https://ethereumwatch.herokuapp.com/summaries
@@ -9,14 +9,14 @@ export function fetchMarketSummaries() {
 }
 
 export function fetchExchangeOhlc(exchangeId, currency = 'usd', crypto = 'eth', periods = '60', after = moment().subtract(1, 'hours').unix(), before) {
-  const url = `${API_URL}/markets/${exchangeId}/${crypto}${currency}/ohlc`;
+  const url = `${CRYPTOWATCH_API_URL}/markets/${exchangeId}/${crypto}${currency}/ohlc`;
   const params = { after, periods };
   if (before) params.before = before;
   return fetchAsync(url, params);
 }
 
 export function fetchLastTrades(exchangeId, currency = 'usd', crypto = 'eth', limit = 50) {
-  const url = `${API_URL}/markets/${exchangeId}/${crypto}${currency}/trades`;
+  const url = `${CRYPTOWATCH_API_URL}/markets/${exchangeId}/${crypto}${currency}/trades`;
   return fetchAsync(url, { limit });
   // [ ID, Timestamp, Price, Amount ]
 }

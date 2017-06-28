@@ -20,7 +20,7 @@ const newAlertOptions = [
     alerts: { alertPromptOpen },
     exchange: { currentCrypto, currentCurrency, currentExchange },
     prices: { markets },
-    user: { uid }
+    user: { uid },
   }) => ({ visible: alertPromptOpen, currency: currentCurrency, crypto: currentCrypto, exchangeId: currentExchange, markets, uid }),
   { createAlert, closeAlertPrompt },
 )
