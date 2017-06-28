@@ -197,7 +197,7 @@ export default class AddStackPrompt extends PureComponent {
         options={[{ label: 'Cancel' }, { label: 'Create', onPress: this.handleCreate }]}
       >
         <View style={styles.inputInline}>
-          <Text style={styles.bold}>Qty bought:</Text>
+          <Text style={styles.bold}>Amount:</Text>
           <TextInput
             onEndEditing={this.handleStackAmountInputEnd}
             style={styles.alertTextInput}
