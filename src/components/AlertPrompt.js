@@ -56,10 +56,10 @@ export default class AlertPrompt extends PureComponent {
   }
 
   handleCreateAlert = () => {
-    const { uid, exchangeId, crypto, currency } = this.props;
+    const { uid, exchangeId, crypto, currency, createAlert } = this.props;
     const { newAlertPriceValue, newAlertHigherValue } = this.state;
     if (!isNaN(newAlertPriceValue)) {
-      this.props.createAlert(uid, exchangeId, currency, crypto, newAlertPriceValue, newAlertHigherValue).then(() => {
+      createAlert(uid, exchangeId, currency, crypto, newAlertPriceValue, newAlertHigherValue).then(() => {
         if (Platform.OS === 'android') ToastAndroid.show('Alert created!', ToastAndroid.SHORT);
       });
       this.setState(this.clearState());

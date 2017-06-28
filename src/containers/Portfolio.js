@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View, StyleSheet, FlatList, Text } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { filter, get } from 'lodash';
+import { filter, get, round, uniqBy } from 'lodash';
 
 import { create, deleteEntry, split, stack, sell } from '../actions/portfolio';
 
@@ -12,14 +12,6 @@ import AddStackPrompt from '../components/portfolio/AddStackPrompt';
 
 import { GREY, DARKER_BLUE, LIGHT_BLUE, BLUE } from '../styles';
 
-function calcStats(entriesArray) {
-  // rentabilidade
-  // total investido €
-  const results = {
-    rentability: 0,
-    totalFiat: 0,
-  };
-}
 
 @connect(({
   prices: { markets },
@@ -69,24 +61,49 @@ export default class Portfolio extends Component {
     />
   )
 
-  renderStats () {
-    const stats = calcStats(this.props.portfolio);
+  calcStats = (entriesArray) => {
+    const { markets } = this.props;
+    const uniqCurrencies = uniqBy(entriesArray, 'currency')
+      .reduce((acc, c) => { acc[c.currency] = 0; return acc; }, {});
+    const results = {
+      rentability: 0,
+      totalFiat: {
+        eur: 0,
+        usd: 0,
+        gbp: 0,
+      },
+    };
+
+    entriesArray.forEach((entry) => {
+      const { crypto, currency, exchange, amount, boughtPrice } = entry;
+      results.totalFiat[currency] += amount * boughtPrice;
+      const currentPrice = get(markets, `[${crypto}${currency}][${exchange}].price.last`, boughtPrice);
+      const changePercent = ((currentPrice - boughtPrice) / boughtPrice);
+      results.rentability += changePercent;
+    });
+
+    results.rentability = round((results.rentability / entriesArray.length) * 100, 3);
+    return results;
+  }
+
+  renderStats() {
+    const { rentability, totalFiat } = this.calcStats(this.props.portfolio);
     return (
       <View style={styles.stats} elevation={2}>
         <View style={styles.multiline}>
-          <Text style={styles.content}>123</Text>
+          <Text style={styles.content}>{`${rentability >= 100.0 ? '+' : ''}${rentability}%`}</Text>
           <Text style={styles.subtitle}>Avg. rentability</Text>
         </View>
 
         <View style={styles.multiline}>
-          <Text style={styles.content}>123</Text>
-          <Text style={styles.subtitle}>cenas</Text>
+          <Text style={styles.content}>{round(totalFiat.eur, 2)}€</Text>
+          <Text style={styles.subtitle}>Amount invested (€)</Text>
         </View>
 
-        <View style={styles.multiline}>
+        {/*<View style={styles.multiline}>
           <Text style={styles.content}>987</Text>
           <Text style={styles.subtitle}>Since ()</Text>
-        </View>
+        </View>*/}
       </View>
     );
   }
