@@ -14,7 +14,7 @@ if (Platform.OS === 'ios') {
   firebase.messaging().requestPermissions();
 }
 
-// firebase.admob().initialize('ca-app-pub-3886797449668157~1272245972');
+firebase.admob().initialize('ca-app-pub-3886797449668157~1272245972');
 
 if (__DEV__) {
   firebase.analytics().setAnalyticsCollectionEnabled(false);

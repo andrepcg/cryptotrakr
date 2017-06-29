@@ -8,7 +8,7 @@ export const CRYPTOWATCH_API_URL = 'https://api.cryptowat.ch';
 export const BUGS_EMAIL = 'bug@cryptotrakr.com';
 
 export const exchanges = [
-  { id: 'coinbase', name: 'Coinbase' },
+  { id: 'gdax', name: 'GDAX' },
   { id: 'btce', name: 'BTC-e' },
   { id: 'bitfinex', name: 'Bitfinex' },
   { id: 'gemini', name: 'Gemini' },

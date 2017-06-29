@@ -22,7 +22,7 @@ export default function Drawer({ navigation }) {
     Linking.openURL('https://www.paypal.me/andrepcg');
   };
 
-  const openMailBugreport = () => {
+  const openMailBugReport = () => {
     const subject = 'Cryptotrakr Bug report';
     Linking.openURL(`mailto:${BUGS_EMAIL}?subject=${subject}&body=`);
   };
@@ -58,7 +58,7 @@ export default function Drawer({ navigation }) {
           <Icon name="beer" size={25} />
           <Text style={styles.linkName}>Buy me a beer!</Text>
         </Button>
-        <Button style={styles.link} onPressFunc={this.openMailBugreport} >
+        <Button style={styles.link} onPressFunc={openMailBugReport} >
           <Icon name="bug" size={25} />
           <Text style={styles.linkName}>Bug report</Text>
         </Button>

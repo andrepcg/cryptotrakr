@@ -47,8 +47,8 @@ export default class Premium extends PureComponent {
     await Billing.close();
     try {
       await Billing.open();
-      // const [beer, premium, noads] = await Billing.getProductDetailsArray([products.beer, products.premium, products.noads]);
-      const [beer, premium, noads] = await Billing.getProductDetailsArray(['android.test.purchased', 'android.test.purchased', 'android.test.purchased']);
+      const [beer, premium, noads] = await Billing.getProductDetailsArray([products.beer, products.premium, products.noads]);
+      // const [beer, premium, noads] = await Billing.getProductDetailsArray(['android.test.purchased', 'android.test.purchased', 'android.test.purchased']);
       this.setState({
         productsLoaded: true,
         productDetails: { beer, premium, noads },

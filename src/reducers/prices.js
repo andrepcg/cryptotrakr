@@ -7,9 +7,8 @@ const initialState = {
   lastReceiveTime: null,
   markets: {
   },
-  // exchanges: importExchanges(),
   favoritePairs: {
-    ethusd: ['kraken', 'coinbase'],
+    ethusd: ['kraken', 'gdax'],
   },
 };
 
