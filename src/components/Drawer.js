@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { View, Text, StyleSheet, Image, ToastAndroid, Platform, Linking, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, Platform, Linking, ScrollView } from 'react-native';
 import { debounce } from 'lodash';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -8,7 +8,8 @@ import ethereumLogo from '../img/ethereum-logo-white.png';
 
 import { DARKER_BLUE } from '../styles';
 
-const showUnavailable = () => Platform.OS === 'android' && ToastAndroid.show('Future feature', ToastAndroid.SHORT);
+import { BUGS_EMAIL } from '../config';
+
 
 export default function Drawer({ navigation }) {
   const navigate = debounce(
@@ -19,6 +20,11 @@ export default function Drawer({ navigation }) {
 
   const openLink = () => {
     Linking.openURL('https://www.paypal.me/andrepcg');
+  };
+
+  const openMailBugreport = () => {
+    const subject = 'Cryptotrakr Bug report';
+    Linking.openURL(`mailto:${BUGS_EMAIL}?subject=${subject}&body=`);
   };
 
   return (
@@ -38,14 +44,10 @@ export default function Drawer({ navigation }) {
           <Icon name="bell-outline" size={25} />
           <Text style={styles.linkName}>Alerts</Text>
         </Button>
-        <Button style={styles.link} onPressFunc={showUnavailable} >
+        {/*<Button style={styles.link} onPressFunc={showUnavailable} >
           <Icon name="settings" size={25} />
           <Text style={styles.linkName}>Settings</Text>
-        </Button>
-        <Button style={styles.link} onPressFunc={() => navigate('About')} >
-          <Icon name="information-outline" size={25} />
-          <Text style={styles.linkName}>About</Text>
-        </Button>
+        </Button>*/}
         {Platform.OS === 'android' &&
           <Button style={styles.link} onPressFunc={() => navigate('Premium')} >
             <Icon name="cart-outline" size={25} />
@@ -55,6 +57,14 @@ export default function Drawer({ navigation }) {
         <Button style={styles.link} onPressFunc={openLink} >
           <Icon name="beer" size={25} />
           <Text style={styles.linkName}>Buy me a beer!</Text>
+        </Button>
+        <Button style={styles.link} onPressFunc={this.openMailBugreport} >
+          <Icon name="bug" size={25} />
+          <Text style={styles.linkName}>Bug report</Text>
+        </Button>
+        <Button style={styles.link} onPressFunc={() => navigate('About')} >
+          <Icon name="information-outline" size={25} />
+          <Text style={styles.linkName}>About</Text>
         </Button>
       </ScrollView>
     </View>

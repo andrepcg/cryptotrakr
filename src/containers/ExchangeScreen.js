@@ -17,6 +17,7 @@ import { openAlertPrompt } from '../actions/alerts';
 
 import { ALMOST_WHITE, DARKER_BLUE, GREEN, darkHeader } from '../styles';
 
+import { Banner, AdRequest } from '../firebase';
 import PriceVolumeChart from '../components/PriceVolumeChart';
 import AlertPrompt from '../components/AlertPrompt';
 import Button from '../components/Button';
@@ -27,10 +28,11 @@ function formatNumber(number) {
   return numeral(n).format('0,0.000');
 }
 
-const selectedPeriodColor = tinycolor(GREEN).darken(20).toString();
+const selectedPeriodColor = tinycolor(GREEN).darken(10).toString();
 
 @connect(
   ({
+    purchases: { noads, premium },
     user: { uid },
     exchange: {
       isFetching: isFetchingOhlc,
@@ -53,6 +55,8 @@ const selectedPeriodColor = tinycolor(GREEN).darken(20).toString();
     currentCrypto,
     currentCurrency,
     uid,
+    isPremium: premium,
+    noAds: noads,
   }),
   { fetchOhlc, fetchPrices, changePeriod },
 )
@@ -69,6 +73,8 @@ export default class ExchangeScreen extends Component {
     currentCrypto: PropTypes.string,
     changePeriod: PropTypes.func,
     uid: PropTypes.string,
+    isPremium: PropTypes.bool,
+    noAds: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -192,7 +198,7 @@ export default class ExchangeScreen extends Component {
   }
 
   render() {
-    const { ohlc, timeframe, currentCurrency } = this.props;
+    const { ohlc, timeframe, currentCurrency, isPremium, noAds } = this.props;
 
     return (
       <View style={styles.container}>
@@ -207,6 +213,13 @@ export default class ExchangeScreen extends Component {
         />
 
         {this.renderLoading()}
+
+        {!isPremium && !noAds &&
+          <Banner
+            unitId="ca-app-pub-3886797449668157/4225712378"
+            request={new AdRequest().addKeyword('cryptocurrency').addKeyword('bitcoin').addKeyword('ethereum').addKeyword('stocks').addKeyword('trading').build()}
+          />
+        }
 
       </View>
     );

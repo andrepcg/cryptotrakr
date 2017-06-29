@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { Alert } from 'react-native';
 import numeral from 'numeral';
+import { openPremiumScreen } from '../actions/purchases';
 
 const uuidFormat = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
 
@@ -18,9 +19,13 @@ export function formatAmount(number) {
   return numeral(n).format('0,0.00');
 }
 
-export const showPremiumAlert = () => {
+export const showPremiumAlert = (dispatch) => {
   Alert.alert(
     'Limit reached!',
     'You\'ve reached the limit entries for a free user. Buy premium to unlock more slots.',
+    [
+      { text: 'Later' },
+      { text: 'Buy Premium', onPress: () => dispatch(openPremiumScreen())},
+    ],
   );
 }

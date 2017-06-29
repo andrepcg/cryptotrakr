@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { View, ScrollView, Button, StyleSheet, Text, Alert, ActivityIndicator, Image } from 'react-native';
 import Billing from 'react-native-billing';
 
-import { SUPER_DARKER_BLUE, darkHeader, LIGHT_GREY } from '../styles';
+import { GREEN, darkHeader, LIGHT_GREY } from '../styles';
 import beerImage from '../assets/beer.png';
 import starImage from '../assets/start.png';
 import adsImage from '../assets/ads.png';
@@ -29,7 +29,7 @@ export default class Premium extends PureComponent {
   };
 
   static propTypes = {
-    purchaseProduct: PropTypes.bool,
+    purchaseProduct: PropTypes.func,
     noads: PropTypes.bool,
     premium: PropTypes.bool,
   }
@@ -60,7 +60,7 @@ export default class Premium extends PureComponent {
     }
   }
 
-  purchase = async (productId, onPurchase) => {
+  purchase = async (productId, onPurchase, consume = false) => {
     let details;
 
     await Billing.close();
@@ -71,7 +71,7 @@ export default class Premium extends PureComponent {
       console.error(err);
     } finally {
       if (details && details.purchaseState === 'PurchasedSuccessfully') {
-        await Billing.consumePurchase(productId);
+        if (consume) await Billing.consumePurchase(productId);
         Alert.alert('Thanks for your purchase!', 'Your support is very welcomed, you\'re making future development possible :)');
         if (onPurchase) onPurchase();
       }
@@ -104,7 +104,8 @@ export default class Premium extends PureComponent {
   }
 
   renderProducts() {
-    const { productDetails: { beer, premium, noads } } = this.state;
+    const { premium, noads } = this.props;
+    const { productDetails: { beer, premium: premiumDetails, noads: noadsDetails } } = this.state;
     return (
       <ScrollView>
         <MyButton style={styles.card} elevation={3}>
@@ -113,25 +114,39 @@ export default class Premium extends PureComponent {
             <Text style={styles.title}>{beer.title}</Text>
             <Text>{beer.description}</Text>
           </View>
-          <Button style={styles.button} title={`${beer.priceText}${beer.currency}`} onPress={() => this.purchase(products.beer)} />
+          <Button
+            style={styles.button}
+            title={`${beer.priceText}${beer.currency}`}
+            onPress={() => this.purchase(products.beer, () => {}, true)}
+          />
         </MyButton>
 
         <MyButton style={styles.card} elevation={3}>
           <Image source={adsImage} style={styles.image} />
           <View style={styles.description}>
-            <Text style={styles.title}>{noads.title}</Text>
-            <Text>{noads.description}</Text>
+            <Text style={styles.title}>{noadsDetails.title}</Text>
+            <Text>{noadsDetails.description}</Text>
           </View>
-          <Button style={styles.button} title={`${noads.priceText}${noads.currency}`} onPress={() => this.purchase(products.noads)} />
+          <Button
+            style={styles.button}
+            title={!noads ? `${noadsDetails.priceText}${noadsDetails.currency}` : 'Bought'}
+            onPress={() => !noads && this.purchase(products.noads)}
+            color={noads ? GREEN : null}
+          />
         </MyButton>
 
         <MyButton style={styles.card} elevation={3}>
           <Image source={starImage} style={styles.image} />
           <View style={styles.description}>
-            <Text style={styles.title}>{premium.title}</Text>
-            <Text>{premium.description}</Text>
+            <Text style={styles.title}>{premiumDetails.title}</Text>
+            <Text>{premiumDetails.description}</Text>
           </View>
-          <Button style={styles.button} title={`${premium.priceText}${premium.currency}`} onPress={() => this.purchase(products.premium)} />
+          <Button
+            style={styles.button}
+            title={`${premiumDetails.priceText}${premiumDetails.currency}`}
+            onPress={() => !premium && this.purchase(products.premium)}
+            color={premium ? GREEN : ''}
+          />
         </MyButton>
       </ScrollView>
     );

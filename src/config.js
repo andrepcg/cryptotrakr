@@ -1,8 +1,11 @@
 import { Platform } from 'react-native';
+import * as styles from './styles';
+
 export const appName = 'Crypto Trakr';
 
 export const API_URL = 'https://cryptotrakr.herokuapp.com';
 export const CRYPTOWATCH_API_URL = 'https://api.cryptowat.ch';
+export const BUGS_EMAIL = 'bug@cryptotrakr.com';
 
 export const exchanges = [
   { id: 'coinbase', name: 'Coinbase' },
@@ -20,25 +23,25 @@ export const exchanges = [
 ];
 
 export const pairs = [
-  { id: 'etheur', name: 'ETH/EUR' },
-  { id: 'ethusd', name: 'ETH/USD' },
-  { id: 'ethbtc', name: 'ETH/BTC' },
-  { id: 'btcusd', name: 'BTC/USD' },
-  { id: 'btceur', name: 'BTC/EUR' },
-  { id: 'ltcusd', name: 'LTC/USD' },
-  { id: 'ltceur', name: 'LTC/EUR' },
-  { id: 'ltcbtc', name: 'LTC/BTC' },
-  { id: 'xrpeur', name: 'XRP/EUR' },
-  { id: 'xrpusd', name: 'XRP/USD' },
+  { id: 'etheur', name: 'ETH/EUR', crypto: 'eth' },
+  { id: 'ethusd', name: 'ETH/USD', crypto: 'eth' },
+  { id: 'ethbtc', name: 'ETH/BTC', crypto: 'eth' },
+  { id: 'btcusd', name: 'BTC/USD', crypto: 'btc' },
+  { id: 'btceur', name: 'BTC/EUR', crypto: 'btc' },
+  { id: 'ltcusd', name: 'LTC/USD', crypto: 'ltc' },
+  { id: 'ltceur', name: 'LTC/EUR', crypto: 'ltc' },
+  { id: 'ltcbtc', name: 'LTC/BTC', crypto: 'ltc' },
+  { id: 'xrpeur', name: 'XRP/EUR', crypto: 'xrp' },
+  { id: 'xrpusd', name: 'XRP/USD', crypto: 'xrp' },
   // { id: 'xrpbtc', name: 'XRP/BTC' },
 ];
 
 
 export const cryptos = [
-  { id: 'eth', name: 'ETH' },
-  { id: 'btc', name: 'BTC' },
-  { id: 'ltc', name: 'LTC' },
-  { id: 'xrp', name: 'XRP' },
+  { id: 'eth', name: 'ETH', longName: 'Ethereum', color: styles.DARKER_BLUE },
+  { id: 'btc', name: 'BTC', longName: 'Bitcoin', color: styles.ORANGE },
+  { id: 'ltc', name: 'LTC', longName: 'Litecoin', color: styles.DARK_BLUE },
+  { id: 'xrp', name: 'XRP', longName: 'Ripple', color: styles.GREEN },
 ];
 
 export const currencies = [

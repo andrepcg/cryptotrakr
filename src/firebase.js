@@ -59,3 +59,6 @@ export function getNotificationToken() {
 export function logEvent(name, data) {
   firebase.analytics().logEvent(name, data);
 }
+
+export const Banner = firebase.admob.Banner;
+export const AdRequest = firebase.admob.AdRequest;

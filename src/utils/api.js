@@ -29,7 +29,7 @@ async function fetchAsync(url, params = {}) {
     // console.log('GET', `${url}?${query(params)}`);
     const response = await fetch(`${url}?${query(params)}`);
     const data = await response.json();
-    return data;
+    return data.hasOwnProperty('result') ? data.result : data;
   } catch (err) {
     console.error(err);
     // if (Platform.OS === 'android') ToastAndroid.show('Fetch failed', ToastAndroid.SHORT);

@@ -52,8 +52,8 @@ export default class AppWithNavigationState extends Component {
 
   fetchPricesInterval = () => {
     const { lastReceiveTime, dispatch } = this.props;
-    const FIVE_MINUTES = 5 * 60 * 1000;
-    if (((new Date()) - lastReceiveTime) > FIVE_MINUTES) {
+    const TWO_MINUTES = 2 * 60 * 1000;
+    if (((new Date()) - lastReceiveTime) > TWO_MINUTES) {
       dispatch(fetchPrices());
     }
     else if (!lastReceiveTime) {

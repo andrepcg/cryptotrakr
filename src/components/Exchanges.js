@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 import { StyleSheet, View, SectionList, Text } from 'react-native';
 
-import { orderBy, get, intersection } from 'lodash';
+import { orderBy, get, intersection, find } from 'lodash';
 
 import Exchange from './Exchange';
 import { DARK_BLUE } from '../styles';
-import { pairs } from '../config';
+import { pairs, cryptos } from '../config';
 
 export default function Exchanges({
   markets,
@@ -24,7 +24,7 @@ export default function Exchanges({
     return intersection(obj, favoritePairs[pair] || []);
   };
 
-  const sections = pairs.map(({ id, name }) => ({
+  const sections = pairs.map(({ id, name, crypto }) => ({
     data: markets[id]
       ? pairExchanges(id, markets[id]).map(exchangeid => ({
         exchangeid,
@@ -33,9 +33,9 @@ export default function Exchanges({
       }))
       : [],
     title: name,
+    crypto: find(cryptos, { id: crypto }),
     key: id,
   })).filter(e => e.data.length);
-
 
   const renderItem = ({ item: { exchangeid, pair, price, volume } }) => {
     if (!price && !volume) return;
@@ -57,9 +57,11 @@ export default function Exchanges({
     );
   };
 
-  const renderSectionHeader = ({ section: { title } }) => (
-    <View style={styles.sectionHeader}>
-      <Text style={styles.headerText} key={title}>{title}</Text>
+  const renderSectionHeader = ({ section: { title, crypto: { longName, color } } }) => (
+    <View style={[styles.sectionHeader, { backgroundColor: color }]}>
+      <Text style={styles.headerText} key={title}>
+        <Text style={styles.bold}>{longName}</Text> ∙ {title}
+      </Text>
     </View>
   );
 
@@ -108,11 +110,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headerText: {
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     color: 'white',
   },
   container: {
     paddingBottom: 20,
     flexDirection: 'column',
+  },
+  bold: {
+    fontWeight: 'bold',
   },
 });

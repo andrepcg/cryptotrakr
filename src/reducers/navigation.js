@@ -1,5 +1,6 @@
 import { NavigationActions } from 'react-navigation';
 import { OPEN_EXCHANGE } from '../actions/exchange';
+import { OPEN_PREMIUM_SCREEN } from '../actions/purchases';
 
 import AppNavigator from '../navigators/AppNavigator';
 
@@ -15,6 +16,14 @@ export default function nav(state, action) {
           crypto: action.payload.crypto,
           currency: action.payload.currency,
         },
+      });
+
+      return AppNavigator.router.getStateForAction(navigationAction, state);
+    }
+
+    case OPEN_PREMIUM_SCREEN: {
+      const navigationAction = NavigationActions.navigate({
+        routeName: 'Premium',
       });
 
       return AppNavigator.router.getStateForAction(navigationAction, state);

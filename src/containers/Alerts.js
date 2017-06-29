@@ -8,6 +8,7 @@ import numeral from 'numeral';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { createAlert, editAlert, removeAlert, fetchAlerts } from '../actions/alerts';
+import { Banner, AdRequest } from '../firebase';
 
 import Button from '../components/Button';
 import { exchanges } from '../config';
@@ -21,9 +22,10 @@ const showInfo = () => {
 };
 
 @connect(({
+  purchases: { noads, premium },
   alerts: { alerts, isLoading },
   user: { uid },
-}) => ({ alerts, isLoading, uid }),
+}) => ({ alerts, isLoading, uid, isPremium: premium, noAds: noads }),
   { createAlert, editAlert, removeAlert, fetchAlerts },
 )
 export default class Alerts extends PureComponent {
@@ -45,6 +47,8 @@ export default class Alerts extends PureComponent {
     removeAlert: PropTypes.func,
     fetchAlerts: PropTypes.func,
     isLoading: PropTypes.bool,
+    isPremium: PropTypes.bool,
+    noAds: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -125,7 +129,7 @@ export default class Alerts extends PureComponent {
   }
 
   render() {
-    const { alerts, isLoading } = this.props;
+    const { alerts, isLoading, isPremium, noAds } = this.props;
 
     const alertsList = Object.values(alerts);
 
@@ -141,6 +145,12 @@ export default class Alerts extends PureComponent {
           renderItem={this.renderAlert}
           ListEmptyComponent={this.renderEmpty}
         />
+        {!isPremium && !noAds &&
+          <Banner
+            unitId="ca-app-pub-3886797449668157/4225712378"
+            request={new AdRequest().addKeyword('cryptocurrency').addKeyword('bitcoin').addKeyword('ethereum').addKeyword('stocks').addKeyword('trading').build()}
+          />
+        }
       </View>
     );
   }

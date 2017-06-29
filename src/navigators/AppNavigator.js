@@ -32,7 +32,7 @@ const Tabs = TabNavigator({
   Favorites: {
     screen: () => <Cryptos onlyFavorites />,
     navigationOptions: () => ({
-      tabBarLabel: 'Favorites',
+      tabBarLabel: 'Watchlist',
       tabBarIcon: ({ tintColor }) => <Icon name="star" size={20} color={tintColor} />,
     }),
   },

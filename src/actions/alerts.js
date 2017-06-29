@@ -14,19 +14,17 @@ export const FETCH_ALERTS_SUCCESS = 'FETCH_ALERTS_SUCCESS';
 export const OPEN_ALERT_PROMPT = 'OPEN_ALERT_PROMPT';
 export const CLOSE_ALERT_PROMPT = 'CLOSE_ALERT_PROMPT';
 
-export const openAlertPrompt = (currentExchange, currentCrypto, currentCurrency) => {
-  return (dispatch, getState) => {
-    const { purchases: { premium }, alerts: { alerts } } = getState();
-    if (!premium && Object.keys(alerts).length >= freeLimits.alerts) {
-      showPremiumAlert();
+export const openAlertPrompt = (currentExchange, currentCrypto, currentCurrency) => (dispatch, getState) => {
+  const { purchases: { premium }, alerts: { alerts } } = getState();
+  if (!premium && Object.keys(alerts).length >= freeLimits.alerts) {
+    showPremiumAlert(dispatch);
+  } else {
+    if (!currentExchange) {
+      dispatch({ type: OPEN_ALERT_PROMPT });
     } else {
-      if (!currentExchange) {
-        dispatch({ type: OPEN_ALERT_PROMPT });
-      } else {
-        dispatch({ type: OPEN_ALERT_PROMPT, payload: { currentExchange, currentCrypto, currentCurrency } });
-      }
+      dispatch({ type: OPEN_ALERT_PROMPT, payload: { currentExchange, currentCrypto, currentCurrency } });
     }
-  };
+  }
 };
 
 export const closeAlertPrompt = () => ({ type: CLOSE_ALERT_PROMPT });
