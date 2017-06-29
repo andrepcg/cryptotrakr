@@ -31,7 +31,7 @@ export const sell = (id, amountSold, sellPrice) =>
 export const openAddPrompt = () => (dispatch, getState) => {
   const { purchases: { premium }, portfolio: { portfolio } } = getState();
   if (!premium && Object.keys(portfolio).length >= freeLimits.portfolio) {
-    showPremiumAlert();
+    showPremiumAlert(dispatch);
   } else {
     dispatch({ type: OPEN_ADD_PROMPT });
   }
