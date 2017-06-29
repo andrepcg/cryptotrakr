@@ -5,14 +5,12 @@ import CodePush from 'react-native-code-push';
 import App from './containers/AppWithNavigationState';
 import LoadingScreen from './components/Loading';
 import configureStore from './configureStore';
-// import App from './App';
 
-// @CodePush
 class setup extends Component {
 
   state = {
     hydrated: false,
-    codepushLoaded: __DEV__,
+    codepushLoaded: __DEV__ ? true : false,
     codepushStatus: null,
   }
 
@@ -21,13 +19,13 @@ class setup extends Component {
 
     if (!__DEV__) {
       CodePush.sync({ updateDialog: false, installMode: CodePush.InstallMode.IMMEDIATE },
-        this.codePushStatusDidChange
+        this.codePushStatusDidChange,
       );
     }
   }
 
   codePushStatusDidChange = (status) => {
-    switch(status) {
+    switch (status) {
       case CodePush.SyncStatus.CHECKING_FOR_UPDATE:
         break;
       case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
