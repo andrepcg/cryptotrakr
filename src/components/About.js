@@ -1,20 +1,35 @@
 import React, { PureComponent } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Linking, Image } from 'react-native';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { View, StyleSheet, Text, Linking, Image } from 'react-native';
 
 import { SUPER_DARKER_BLUE, darkHeader } from '../styles';
 import { appName } from '../config';
 import ethereumLogo from '../img/ethereum-logo-white.png';
 
+import Button from './Button';
+
+import { purchaseProduct } from '../actions/purchases';
+
+@connect()
 export default class About extends PureComponent {
   static navigationOptions = {
     title: 'About',
     ...darkHeader,
     headerTruncatedBackTitle: null,
     headerBackTitle: null,
+  };
+
+  static propTypes = {
+    dispatch: PropTypes.func,
   }
 
   openLink = () => {
     Linking.openURL('http://andrepcg.me');
+  }
+
+  disableAds = () => {
+    this.props.dispatch(purchaseProduct('noads'));
   }
 
   render() {
@@ -30,11 +45,11 @@ export default class About extends PureComponent {
             <Text style={styles.me}>BTC:</Text> 32KXmd73oRymV7Np3RkDG8xQQTkP5Sg4GX
           </Text>
         </View>*/}
-        <TouchableOpacity onPress={this.openLink} style={styles.justify}>
+        <Button onPressFunc={this.openLink} onLongPressFunc={this.disableAds} style={styles.justify}>
           <Text style={[styles.white, styles.me]}>André Perdigão</Text>
           <Text style={styles.white}>andrepcg.me</Text>
           <Text style={styles.white}>email@andrepcg.me</Text>
-        </TouchableOpacity>
+        </Button>
       </View>
     );
   }

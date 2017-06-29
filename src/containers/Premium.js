@@ -12,7 +12,7 @@ import adsImage from '../assets/ads.png';
 import { products } from '../config';
 import { purchaseProduct } from '../actions/purchases';
 
-import MyButton from './Button';
+import MyButton from '../components/Button';
 
 
 @connect(({
