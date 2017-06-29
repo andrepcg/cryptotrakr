@@ -60,7 +60,7 @@ export default class Premium extends PureComponent {
     }
   }
 
-  purchase = async (productId, onPurchase, consume = false) => {
+  purchase = async (productId, onPurchase, consume = true) => {
     let details;
 
     await Billing.close();
