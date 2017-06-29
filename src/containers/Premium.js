@@ -47,7 +47,7 @@ export default class Premium extends PureComponent {
     await Billing.close();
     try {
       await Billing.open();
-      const [beer, premium, noads] = await Billing.getProductDetailsArray([products.beer, products.premium, products.noads]);
+      const [beer, premium, noads] = await Billing.getProductDetailsArray(['beer', 'premium', 'noads']);
       // const [beer, premium, noads] = await Billing.getProductDetailsArray(['android.test.purchased', 'android.test.purchased', 'android.test.purchased']);
       this.setState({
         productsLoaded: true,
@@ -80,14 +80,14 @@ export default class Premium extends PureComponent {
   }
 
   purchaseNoAds = () => {
-    this.purchase(products.noads, () => {
-      this.props.purchaseProduct(products.noads);
+    this.purchase('noads', () => {
+      this.props.purchaseProduct('noads');
     });
   }
 
   purchasePremium = () => {
-    this.purchase(products.premium, () => {
-      this.props.purchaseProduct(products.premium);
+    this.purchase('premium', () => {
+      this.props.purchaseProduct('premium');
     });
   }
 
@@ -117,7 +117,7 @@ export default class Premium extends PureComponent {
           <Button
             style={styles.button}
             title={`${beer.priceText}${beer.currency}`}
-            onPress={() => this.purchase(products.beer, () => {}, true)}
+            onPress={() => this.purchase('beer', () => {}, true)}
           />
         </MyButton>
 
@@ -130,7 +130,7 @@ export default class Premium extends PureComponent {
           <Button
             style={styles.button}
             title={!noads ? `${noadsDetails.priceText}${noadsDetails.currency}` : 'Bought'}
-            onPress={() => !noads && this.purchase(products.noads)}
+            onPress={() => !noads && this.purchase('noads')}
             color={noads ? GREEN : null}
           />
         </MyButton>
@@ -144,7 +144,7 @@ export default class Premium extends PureComponent {
           <Button
             style={styles.button}
             title={`${premiumDetails.priceText}${premiumDetails.currency}`}
-            onPress={() => !premium && this.purchase(products.premium)}
+            onPress={() => !premium && this.purchase('premium')}
             color={premium ? GREEN : ''}
           />
         </MyButton>

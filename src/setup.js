@@ -12,7 +12,7 @@ class setup extends Component {
 
   state = {
     hydrated: false,
-    codepushLoaded: __DEV__ ? true : false,
+    codepushLoaded: __DEV__,
     codepushStatus: null,
   }
 
