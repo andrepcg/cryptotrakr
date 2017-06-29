@@ -1,5 +1,6 @@
+import { freeLimits } from '../config';
 import { setAlert, editAlert as editAlertFb, removeAlert as removeAlertFb, getAlerts, logEvent } from '../firebase';
-import { uuid } from '../utils/general';
+import { uuid, showPremiumAlert } from '../utils/general';
 
 export const CREATE_ALERT = 'CREATE_ALERT';
 export const CREATE_ALERT_FAILED = 'CREATE_ALERT_FAILED';
@@ -14,11 +15,18 @@ export const OPEN_ALERT_PROMPT = 'OPEN_ALERT_PROMPT';
 export const CLOSE_ALERT_PROMPT = 'CLOSE_ALERT_PROMPT';
 
 export const openAlertPrompt = (currentExchange, currentCrypto, currentCurrency) => {
-  if (!currentExchange) {
-    return { type: OPEN_ALERT_PROMPT };
-  } else {
-    return { type: OPEN_ALERT_PROMPT, payload: { currentExchange, currentCrypto, currentCurrency } };
-  }
+  return (dispatch, getState) => {
+    const { purchases: { premium }, alerts: { alerts } } = getState();
+    if (!premium && Object.keys(alerts).length >= freeLimits.alerts) {
+      showPremiumAlert();
+    } else {
+      if (!currentExchange) {
+        dispatch({ type: OPEN_ALERT_PROMPT });
+      } else {
+        dispatch({ type: OPEN_ALERT_PROMPT, payload: { currentExchange, currentCrypto, currentCurrency } });
+      }
+    }
+  };
 };
 
 export const closeAlertPrompt = () => ({ type: CLOSE_ALERT_PROMPT });

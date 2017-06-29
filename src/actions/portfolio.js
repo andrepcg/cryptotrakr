@@ -1,4 +1,5 @@
-// import { uuid } from '../utils/general';
+import { showPremiumAlert } from '../utils/general';
+import { freeLimits } from '../config';
 
 export const CREATE_ENTRY = 'CREATE_ENTRY';
 export const DELETE_ENTRY = 'DELETE_ENTRY';
@@ -27,5 +28,14 @@ export const stack = idsArray => ({ type: STACK_ENTRIES, payload: idsArray });
 export const sell = (id, amountSold, sellPrice) =>
   ({ type: SELL_ENTRY, payload: { id, sellPrice, amountSold } });
 
-export const openAddPrompt = () => ({ type: OPEN_ADD_PROMPT });
+export const openAddPrompt = () => {
+  return (dispatch, getState) => {
+    const { purchases: { premium }, portfolio: { portfolio } } = getState();
+    if (!premium && Object.keys(portfolio).length >= freeLimits.portfolio) {
+      showPremiumAlert();
+    } else {
+      dispatch({ type: OPEN_ADD_PROMPT });
+    }
+  };
+};
 export const closeAddPrompt = () => ({ type: CLOSE_ADD_PROMPT });

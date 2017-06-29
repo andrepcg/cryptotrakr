@@ -46,6 +46,12 @@ export default function Drawer({ navigation }) {
           <Icon name="information-outline" size={25} />
           <Text style={styles.linkName}>About</Text>
         </Button>
+        {Platform.OS === 'android' &&
+          <Button style={styles.link} onPressFunc={() => navigate('Premium')} >
+            <Icon name="cart-outline" size={25} />
+            <Text style={styles.linkName}>Premium</Text>
+          </Button>
+        }
         <Button style={styles.link} onPressFunc={openLink} >
           <Icon name="beer" size={25} />
           <Text style={styles.linkName}>Buy me a beer!</Text>

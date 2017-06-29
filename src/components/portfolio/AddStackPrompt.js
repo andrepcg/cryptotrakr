@@ -1,10 +1,10 @@
 import React, { PureComponent, PropTypes } from 'react';
-import { View, StyleSheet, Text, TextInput, Picker, Platform, ActionSheetIOS } from 'react-native';
+import { View, StyleSheet, Text, TextInput, Picker, Platform, ActionSheetIOS, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import currencySymbol from 'currency-symbol-map';
 import { toUpper, find, round, clamp } from 'lodash';
 
-import { exchanges, cryptos, currencies } from '../../config';
+import { exchanges, cryptos, currencies, freeLimits } from '../../config';
 import Button from '../Button';
 import Prompt from '../Prompt';
 import { openAddPrompt, create, closeAddPrompt } from '../../actions/portfolio';
@@ -15,7 +15,8 @@ const exchangesActionSheetOptions = [...exchanges.map(c => c.name), 'Cancel'];
 
 @connect(({
   portfolio: { addPromptVisible },
-}) => ({ visible: addPromptVisible }),
+  purchases: { premium, noads },
+}) => ({ visible: addPromptVisible, isPremium: premium, noads }),
   { openAddPrompt, create, closeAddPrompt },
 )
 export default class AddStackPrompt extends PureComponent {
@@ -24,6 +25,9 @@ export default class AddStackPrompt extends PureComponent {
     openAddPrompt: PropTypes.func,
     closeAddPrompt: PropTypes.func,
     create: PropTypes.func,
+    portfolioCount: PropTypes.number,
+    isPremium: PropTypes.bool,
+    noads: PropTypes.bool,
   };
 
   static defaultProps = {

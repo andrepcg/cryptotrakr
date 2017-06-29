@@ -1,3 +1,9 @@
+import { Platform } from 'react-native';
+export const appName = 'Crypto Trakr';
+
+export const API_URL = 'https://cryptotrakr.herokuapp.com';
+export const CRYPTOWATCH_API_URL = 'https://api.cryptowat.ch';
+
 export const exchanges = [
   { id: 'coinbase', name: 'Coinbase' },
   { id: 'btce', name: 'BTC-e' },
@@ -41,7 +47,15 @@ export const currencies = [
   // { id: 'gbp', name: 'GBP' },
 ];
 
-export const appName = 'Crypto Trakr';
+export const products = [
+  { id: 'beer', defaultValue: false },
+  { id: 'premium', defaultValue: Platform.OS === 'ios' },
+  { id: 'noads', defaultValue: false },
+];
 
-export const API_URL = 'https://cryptotrakr.herokuapp.com';
-export const CRYPTOWATCH_API_URL = 'https://api.cryptowat.ch';
+export const freeLimits = {
+  alerts: 3,
+  favorites: 2,
+  portfolio: 4,
+};
+

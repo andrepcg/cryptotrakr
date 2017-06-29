@@ -1,11 +1,11 @@
 import React, { PureComponent, PropTypes } from 'react';
-import { View, StyleSheet, Text, TextInput, Platform, ToastAndroid } from 'react-native';
+import { View, StyleSheet, Text, TextInput, Platform, ToastAndroid, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import RadioForm from 'react-native-simple-radio-button';
 import currencySymbol from 'currency-symbol-map';
 import { toUpper, find, get } from 'lodash';
 
-import { exchanges } from '../config';
+import { exchanges, freeLimits } from '../config';
 import Prompt from './Prompt';
 
 import { createAlert, closeAlertPrompt } from '../actions/alerts';
@@ -15,13 +15,12 @@ const newAlertOptions = [
   { label: 'Lower (≤)', value: false },
 ];
 
-@connect((
-  {
-    alerts: { alertPromptOpen },
-    exchange: { currentCrypto, currentCurrency, currentExchange },
-    prices: { markets },
-    user: { uid },
-  }) => ({ visible: alertPromptOpen, currency: currentCurrency, crypto: currentCrypto, exchangeId: currentExchange, markets, uid }),
+@connect(({
+  alerts: { alertPromptOpen, alerts },
+  exchange: { currentCrypto, currentCurrency, currentExchange },
+  prices: { markets },
+  user: { uid },
+}) => ({ visible: alertPromptOpen, currency: currentCurrency, crypto: currentCrypto, exchangeId: currentExchange, markets, uid }),
   { createAlert, closeAlertPrompt },
 )
 export default class AlertPrompt extends PureComponent {

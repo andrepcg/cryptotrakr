@@ -12,6 +12,7 @@ import ExchangeScreen from '../containers/ExchangeScreen';
 import SettingsScreen from '../containers/Settings';
 import AlertsScreen from '../containers/Alerts';
 import AboutScreen from '../components/About';
+import PremiumScreen from '../containers/Premium';
 import Drawer from '../components/Drawer';
 import Button from '../components/Button';
 // import Header from '../components/MainScreen/Header';
@@ -116,6 +117,7 @@ export default StackNavigator({
   },
   Alerts: { screen: AlertsScreen },
   Exchange: { screen: ExchangeScreen },
+  Premium: { screen: PremiumScreen },
   About: { screen: AboutScreen },
 }, {
   headerMode: 'screen',

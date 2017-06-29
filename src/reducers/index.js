@@ -10,6 +10,7 @@ import network from './network';
 import portfolio from './portfolio';
 import notifications from './notifications';
 import app from './app';
+import purchases from './purchases';
 
 export default combineReducers({
   nav,
@@ -22,4 +23,5 @@ export default combineReducers({
   portfolio,
   notifications,
   app,
+  purchases,
 });

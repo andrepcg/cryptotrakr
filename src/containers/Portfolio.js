@@ -4,7 +4,9 @@ import { View, StyleSheet, FlatList, Text } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { filter, get, round, uniqBy } from 'lodash';
+import numeral from 'numeral';
 
+import { convertMoney } from '../utils/prices';
 import { create, deleteEntry, split, stack, sell } from '../actions/portfolio';
 
 import PortfolioCard from '../components/portfolio/PortfolioCard';
@@ -63,12 +65,13 @@ export default class Portfolio extends Component {
 
   calcStats = (entriesArray) => {
     const { markets } = this.props;
-    const uniqCurrencies = uniqBy(entriesArray, 'currency')
-      .reduce((acc, c) => { acc[c.currency] = 0; return acc; }, {});
+    // const uniqCurrencies = uniqBy(entriesArray, 'currency')
+    //   .reduce((acc, c) => { acc[c.currency] = 0; return acc; }, {});
     const results = {
       rentability: 0,
       totalFiat: {
         eur: 0,
+        eurConverted: 0,
         usd: 0,
         gbp: 0,
       },
@@ -77,12 +80,13 @@ export default class Portfolio extends Component {
     entriesArray.forEach((entry) => {
       const { crypto, currency, exchange, amount, boughtPrice } = entry;
       results.totalFiat[currency] += amount * boughtPrice;
+      results.totalFiat.eurConverted += convertMoney(amount * boughtPrice, currency, 'EUR');
       const currentPrice = get(markets, `[${crypto}${currency}][${exchange}].price.last`, boughtPrice);
       const changePercent = ((currentPrice - boughtPrice) / boughtPrice);
       results.rentability += changePercent;
     });
 
-    results.rentability = round((results.rentability / entriesArray.length) * 100, 3);
+    results.rentability = round((results.rentability / entriesArray.length) * 100, 2) || 0;
     return results;
   }
 
@@ -96,14 +100,9 @@ export default class Portfolio extends Component {
         </View>
 
         <View style={styles.multiline}>
-          <Text style={styles.content}>{round(totalFiat.eur, 2)}€</Text>
+          <Text style={styles.content}>€{numeral(totalFiat.eurConverted).format('0,0.00')}</Text>
           <Text style={styles.subtitle}>Amount invested (€)</Text>
         </View>
-
-        {/*<View style={styles.multiline}>
-          <Text style={styles.content}>987</Text>
-          <Text style={styles.subtitle}>Since ()</Text>
-        </View>*/}
       </View>
     );
   }

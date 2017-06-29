@@ -20,8 +20,10 @@ const showInfo = () => {
   );
 };
 
-@connect(
-  ({ alerts: { alerts, isLoading }, user: { uid } }) => ({ alerts, isLoading, uid }),
+@connect(({
+  alerts: { alerts, isLoading },
+  user: { uid },
+}) => ({ alerts, isLoading, uid }),
   { createAlert, editAlert, removeAlert, fetchAlerts },
 )
 export default class Alerts extends PureComponent {

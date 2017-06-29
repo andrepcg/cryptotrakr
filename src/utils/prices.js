@@ -1,4 +1,12 @@
-import { filter, mean } from 'lodash';
+import { filter, mean, toUpper } from 'lodash';
+import money from 'money';
+
+import { fetchExchangeRates } from './api';
+
+fetchExchangeRates().then((json) => {
+  money.rates = json.rates;
+  money.base = json.base;
+});
 
 export function filterOhlcData(apiData) {
   const newObj = {};
@@ -13,3 +21,6 @@ export function candleMean(candle) { // [timestamp, open, high, low, close, volu
   if (!candle || candle.length === 0) return -1;
   return mean(candle.slice(1, candle.length - 1));
 }
+
+export const convertMoney = (a, fromCur, to) =>
+  money(a).from(toUpper(fromCur)).to(toUpper(to));

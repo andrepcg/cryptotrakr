@@ -9,13 +9,16 @@ const firebase = RNFirebase.initializeApp(configurationOptions);
 
 export default firebase;
 
-if (Platform.OS === 'ios')
+
+if (Platform.OS === 'ios') {
   firebase.messaging().requestPermissions();
+}
+
+// firebase.admob().initialize('ca-app-pub-3886797449668157~1272245972');
 
 if (__DEV__) {
   firebase.analytics().setAnalyticsCollectionEnabled(false);
   firebase.crash().setCrashCollectionEnabled(false);
-  // firebase.perf().setPerformanceCollectionEnabled(false);
 }
 
 export function sendNotificationToken(userId, token) {

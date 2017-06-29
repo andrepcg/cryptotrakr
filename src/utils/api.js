@@ -3,8 +3,11 @@ import moment from 'moment';
 
 import { API_URL, CRYPTOWATCH_API_URL } from '../config';
 
+export function fetchExchangeRates() {
+  return fetchAsync(`${API_URL}/exchange_rates`);
+}
+
 export function fetchMarketSummaries() {
-  // https://ethereumwatch.herokuapp.com/summaries
   return fetchAsync(`${API_URL}/summaries`);
 }
 
