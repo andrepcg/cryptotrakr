@@ -37,7 +37,7 @@ export default class Premium extends PureComponent {
   }
 
   state = {
-    productsLoaded: Platform.OS === 'ios',
+    loadingProducts: Platform.OS === 'android',
     productDetails: { beer: {}, premium: {}, noads: {} },
   }
 
@@ -54,12 +54,16 @@ export default class Premium extends PureComponent {
       const premium = find(details, { productId: 'premium' });
       const noads = find(details, { productId: 'noads' });
       this.setState({
-        productsLoaded: true,
+        // loadingProducts: false,
         productDetails: { beer, premium, noads },
       });
     } catch (err) {
       console.log(err);
     } finally {
+      this.setState({
+        loadingProducts: false,
+        // productDetails: { beer, premium, noads },
+      });
       await Billing.close();
     }
   }
@@ -110,6 +114,7 @@ export default class Premium extends PureComponent {
   renderProductsAndroid() {
     const { premium, noads } = this.props;
     const { productDetails: { beer, premium: premiumDetails, noads: noadsDetails } } = this.state;
+    if (!beer) return;
     return (
       <ScrollView>
         <MyButton style={styles.card} elevation={3}>
@@ -175,19 +180,18 @@ export default class Premium extends PureComponent {
   }
 
   render() {
-    const { productsLoaded, premium, noads } = this.state;
+    const { loadingProducts, premium, noads } = this.state;
     return (
       <View style={styles.container}>
-        {productsLoaded && Platform.OS === 'android' && this.renderProductsAndroid()}
-        {productsLoaded && Platform.OS === 'ios' && this.renderProductsIos()}
-        <View style={styles.inlineButtons}>
+        {!loadingProducts && this.renderProductsAndroid()}
+        <View style={styles.restore}>
           <Button
             style={styles.button}
             title={'Restore purchases'}
             onPress={this.restorePurchases}
           />
         </View>
-        {!productsLoaded && this.renderLoading()}
+        {loadingProducts && this.renderLoading()}
         {!premium && !noads &&
           <Banner
             unitId="ca-app-pub-3886797449668157/4225712378"
@@ -202,7 +206,9 @@ export default class Premium extends PureComponent {
 // Icon made by Freepik from www.flaticon.com
 
 const styles = StyleSheet.create({
-  inlineButtons: {
+  restore: {
+    marginTop: 20,
+    marginBottom: 20,
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
