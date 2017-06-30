@@ -62,3 +62,9 @@ export function logEvent(name, data) {
 
 export const Banner = firebase.admob.Banner;
 export const AdRequest = firebase.admob.AdRequest;
+
+export const buildRequest = () => {
+  const request = new AdRequest();
+  request.addKeyword('cryptocurrency').addKeyword('bitcoin').addKeyword('ethereum').addKeyword('stocks').addKeyword('trading');
+  return request;
+};

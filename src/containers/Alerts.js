@@ -8,7 +8,7 @@ import numeral from 'numeral';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { createAlert, editAlert, removeAlert, fetchAlerts } from '../actions/alerts';
-import { Banner, AdRequest } from '../firebase';
+import { Banner, buildRequest } from '../firebase';
 
 import Button from '../components/Button';
 import { exchanges } from '../config';
@@ -148,7 +148,7 @@ export default class Alerts extends PureComponent {
         {!isPremium && !noAds &&
           <Banner
             unitId="ca-app-pub-3886797449668157/4225712378"
-            request={new AdRequest().addKeyword('cryptocurrency').addKeyword('bitcoin').addKeyword('ethereum').addKeyword('stocks').addKeyword('trading').build()}
+            request={buildRequest().build()}
           />
         }
       </View>
@@ -191,6 +191,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 40,
-  }
+  },
 });
 

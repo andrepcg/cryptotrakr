@@ -11,16 +11,18 @@ import Exchanges from '../components/Exchanges';
 import LastUpdate from '../components/LastUpdate';
 import AlertPrompt from '../components/AlertPrompt';
 
+import { Banner, buildRequest } from '../firebase';
 
 import { SUPER_DARKER_BLUE } from '../styles';
 
 
 @connect((
   {
+    purchases: { noads, premium },
     network: { isConnected },
     prices: { isFetching, lastReceiveTime, markets, favoritePairs },
     user: { uid },
-  }) => ({ isFetching, lastReceiveTime, markets, isConnected, uid, favoritePairs }),
+  }) => ({ isFetching, lastReceiveTime, markets, isConnected, uid, favoritePairs, isPremium: premium, noAds: noads }),
   { fetchPrices, setFavoritePair, openExchange, openAlertPrompt },
 )
 export default class Cryptos extends Component {
@@ -39,6 +41,8 @@ export default class Cryptos extends Component {
     closeAlertPrompt: PropTypes.func,
     uid: PropTypes.string,
     onlyFavorites: PropTypes.bool,
+    isPremium: PropTypes.bool,
+    noAds: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -62,6 +66,8 @@ export default class Cryptos extends Component {
       lastReceiveTime,
       markets,
       isConnected,
+      isPremium,
+      noAds,
     } = this.props;
 
     return (
@@ -89,6 +95,12 @@ export default class Cryptos extends Component {
           onlyFavorites={this.props.onlyFavorites}
         />
         <AlertPrompt />
+        {!isPremium && !noAds &&
+          <Banner
+            unitId="ca-app-pub-3886797449668157/4225712378"
+            request={buildRequest().build()}
+          />
+        }
       </View>
     );
   }

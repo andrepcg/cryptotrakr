@@ -17,7 +17,7 @@ import { openAlertPrompt } from '../actions/alerts';
 
 import { ALMOST_WHITE, DARKER_BLUE, GREEN, darkHeader } from '../styles';
 
-import { Banner, AdRequest } from '../firebase';
+import { Banner, buildRequest } from '../firebase';
 import PriceVolumeChart from '../components/PriceVolumeChart';
 import AlertPrompt from '../components/AlertPrompt';
 import Button from '../components/Button';
@@ -217,7 +217,7 @@ export default class ExchangeScreen extends Component {
         {!isPremium && !noAds &&
           <Banner
             unitId="ca-app-pub-3886797449668157/4225712378"
-            request={new AdRequest().addKeyword('cryptocurrency').addKeyword('bitcoin').addKeyword('ethereum').addKeyword('stocks').addKeyword('trading').build()}
+            request={buildRequest().build()}
           />
         }
 

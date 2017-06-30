@@ -10,10 +10,11 @@ import beerImage from '../assets/beer.png';
 import starImage from '../assets/start.png';
 import adsImage from '../assets/ads.png';
 
-import { products } from '../config';
+// import { products } from '../config';
 import { purchaseProduct } from '../actions/purchases';
 
 import MyButton from '../components/Button';
+import { Banner, buildRequest } from '../firebase';
 
 
 @connect(({
@@ -157,11 +158,17 @@ export default class Premium extends PureComponent {
   }
 
   render() {
-    const { productsLoaded } = this.state;
+    const { productsLoaded, premium, noads } = this.state;
     return (
       <View style={styles.container}>
         {productsLoaded && this.renderProducts()}
         {!productsLoaded && this.renderLoading()}
+        {!premium && !noads &&
+          <Banner
+            unitId="ca-app-pub-3886797449668157/4225712378"
+            request={buildRequest().build()}
+          />
+        }
       </View>
     );
   }
