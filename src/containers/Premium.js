@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, ScrollView, Button, StyleSheet, Text, Alert, ActivityIndicator, Image } from 'react-native';
 import Billing from 'react-native-billing';
+import { find } from 'lodash';
 
 import { GREEN, darkHeader, LIGHT_GREY } from '../styles';
 import beerImage from '../assets/beer.png';
@@ -47,8 +48,11 @@ export default class Premium extends PureComponent {
     await Billing.close();
     try {
       await Billing.open();
-      const [beer, premium, noads] = await Billing.getProductDetailsArray(['beer', 'premium', 'noads']);
-      // const [beer, premium, noads] = await Billing.getProductDetailsArray(['android.test.purchased', 'android.test.purchased', 'android.test.purchased']);
+      const details = await Billing.getProductDetailsArray(['beer', 'premium', 'noads']);
+      // const details = await Billing.getProductDetailsArray(['android.test.purchased', 'android.test.canceled', 'android.test.refunded']);
+      const beer = find(details, { productId: 'beer' });
+      const premium = find(details, { productId: 'premium' });
+      const noads = find(details, { productId: 'noads' });
       this.setState({
         productsLoaded: true,
         productDetails: { beer, premium, noads },
@@ -143,9 +147,9 @@ export default class Premium extends PureComponent {
           </View>
           <Button
             style={styles.button}
-            title={`${premiumDetails.priceText}${premiumDetails.currency}`}
+            title={!premium ? `${premiumDetails.priceText}${premiumDetails.currency}` : 'Bought'}
             onPress={() => !premium && this.purchase('premium')}
-            color={premium ? GREEN : ''}
+            color={premium ? GREEN : null}
           />
         </MyButton>
       </ScrollView>
