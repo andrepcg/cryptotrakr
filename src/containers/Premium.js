@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { View, ScrollView, Button, StyleSheet, Text, Alert, ActivityIndicator, Image } from 'react-native';
+import { View, ScrollView, Button, StyleSheet, Text, Alert, ActivityIndicator, Image, Platform } from 'react-native';
 import Billing from 'react-native-billing';
 import { find } from 'lodash';
 
@@ -37,12 +37,12 @@ export default class Premium extends PureComponent {
   }
 
   state = {
-    productsLoaded: false,
+    productsLoaded: Platform.OS === 'ios',
     productDetails: { beer: {}, premium: {}, noads: {} },
   }
 
   componentDidMount() {
-    this.getProductDetails();
+    if (Platform.OS === 'android') this.getProductDetails();
   }
 
   async getProductDetails() {
@@ -50,7 +50,6 @@ export default class Premium extends PureComponent {
     try {
       await Billing.open();
       const details = await Billing.getProductDetailsArray(['beer', 'premium', 'noads']);
-      // const details = await Billing.getProductDetailsArray(['android.test.purchased', 'android.test.canceled', 'android.test.refunded']);
       const beer = find(details, { productId: 'beer' });
       const premium = find(details, { productId: 'premium' });
       const noads = find(details, { productId: 'noads' });
@@ -108,7 +107,7 @@ export default class Premium extends PureComponent {
     );
   }
 
-  renderProducts() {
+  renderProductsAndroid() {
     const { premium, noads } = this.props;
     const { productDetails: { beer, premium: premiumDetails, noads: noadsDetails } } = this.state;
     return (
@@ -157,11 +156,37 @@ export default class Premium extends PureComponent {
     );
   }
 
+  renderProductsIos() {
+    return <Text>No products available</Text>;
+  }
+
+  restorePurchases = async () => {
+    await Billing.close();
+    try {
+      await Billing.open();
+      await Billing.loadOwnedPurchasesFromGoogle();
+      const purchases = Billing.listOwnedProducts();
+      purchases.forEach(productId => this.props.purchaseProduct(productId));
+    } catch (err) {
+      console.error(err);
+    } finally {
+      await Billing.close();
+    }
+  }
+
   render() {
     const { productsLoaded, premium, noads } = this.state;
     return (
       <View style={styles.container}>
-        {productsLoaded && this.renderProducts()}
+        {productsLoaded && Platform.OS === 'android' && this.renderProductsAndroid()}
+        {productsLoaded && Platform.OS === 'ios' && this.renderProductsIos()}
+        <View style={styles.inlineButtons}>
+          <Button
+            style={styles.button}
+            title={'Restore purchases'}
+            onPress={this.restorePurchases}
+          />
+        </View>
         {!productsLoaded && this.renderLoading()}
         {!premium && !noads &&
           <Banner
@@ -177,6 +202,10 @@ export default class Premium extends PureComponent {
 // Icon made by Freepik from www.flaticon.com
 
 const styles = StyleSheet.create({
+  inlineButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
   activityIndicator: {
     position: 'absolute',
     alignItems: 'center',

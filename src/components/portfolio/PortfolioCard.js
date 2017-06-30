@@ -15,7 +15,7 @@ import SellPrompt from './SellPrompt';
 import { GREEN, RED, ALMOST_WHITE } from '../../styles';
 
 import { formatAmount } from '../../utils/general';
-import { exchanges } from '../../config';
+import { exchanges, freeLimits } from '../../config';
 
 export default class PortfolioCard extends PureComponent {
   static propTypes = {
@@ -30,6 +30,7 @@ export default class PortfolioCard extends PureComponent {
     sellEntry: PropTypes.func,
     splitEntry: PropTypes.func,
     exchangeId: PropTypes.string,
+    portfolioEntries: PropTypes.number,
   };
 
   static defaultProps = {
@@ -134,9 +135,11 @@ export default class PortfolioCard extends PureComponent {
             <Button touchableOpacity onPressFunc={this.handleOpenSellPrompt}>
               <Icon style={styles.icon} name="currency-usd" size={25} />
             </Button>
-            <Button touchableOpacity onPressFunc={this.handleOpenSplitPrompt}>
-              <Icon style={styles.icon} name="call-split" size={25} />
-            </Button>
+            {this.props.portfolioEntries < freeLimits.portfolio &&
+              <Button touchableOpacity onPressFunc={this.handleOpenSplitPrompt}>
+                <Icon style={styles.icon} name="call-split" size={25} />
+              </Button>
+            }
             <Button touchableOpacity onPressFunc={this.handleDelete}>
               <Icon style={styles.icon} name="delete" size={25} />
             </Button>

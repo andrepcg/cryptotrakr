@@ -35,17 +35,16 @@
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* cryptotrakrTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* cryptotrakrTests.m */; };
-		372BEAE5E44E26B15870A32B /* libPods-cryptotrakrTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2772AA9A528B999939D9A4F2 /* libPods-cryptotrakrTests.a */; };
 		412DF81DEC0D4EF0B24148CE /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43E23AE3E0884AABA1ADF5E3 /* Foundation.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		61E03B2837F76E323E05CF56 /* libPods-cryptotrakrTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59DCBCC954A9C59210F4FA11 /* libPods-cryptotrakrTests.a */; };
 		64E2AEAC7F0749EC8490EC06 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C5D244868AE49BA802A2175 /* libRNSVG.a */; };
 		682FDE67FB154DD2ADD6A49F /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4D0ECBB46EF4D0F92CEBD3F /* EvilIcons.ttf */; };
 		764E2291A6EA4CD1B5E677CB /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC1F27FB36AE46898DCA6648 /* SimpleLineIcons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		857AA0AA9763499E943D2385 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A788750B97E4ECB93122E0E /* libRNFirebase.a */; };
 		85B347F222144EFF82B74677 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB5AB4CF1B4442F3AFBDCF52 /* Octicons.ttf */; };
 		86B062C217084178AEE918F7 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0473651187B049BA91C052B7 /* libz.tbd */; };
-		A2DFD441F7773F286DF326C6 /* libPods-cryptotrakr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C021E1D1C6826FF7C03A0B7 /* libPods-cryptotrakr.a */; };
+		A7413F2525486B684A25EAE2 /* libPods-cryptotrakr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7BCB98EC4AA62B0AAFEE68 /* libPods-cryptotrakr.a */; };
 		AF8C600EF8334165AB4D117A /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52C4F6FE33E34A4BAA4D3E22 /* MaterialCommunityIcons.ttf */; };
 		BC6410C65784470DB58EC88D /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1579ED21AD2E47239AE84132 /* Entypo.ttf */; };
 		CB89E9F41EFDA8C3003E2672 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB89E9F31EFDA8C3003E2672 /* GoogleService-Info.plist */; };
@@ -324,7 +323,6 @@
 		00E356F21AD99517003FC87E /* cryptotrakrTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cryptotrakrTests.m; sourceTree = "<group>"; };
 		0473651187B049BA91C052B7 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		064111B68F624EFE8D8DA570 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
-		0A788750B97E4ECB93122E0E /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* cryptotrakr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cryptotrakr.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -336,34 +334,36 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = cryptotrakr/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		1579ED21AD2E47239AE84132 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
-		20CAD8EE94FC90C06BE96BB5 /* Pods-cryptotrakr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cryptotrakr.release.xcconfig"; path = "Pods/Target Support Files/Pods-cryptotrakr/Pods-cryptotrakr.release.xcconfig"; sourceTree = "<group>"; };
 		26A555571E37435DBCED909B /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
-		2772AA9A528B999939D9A4F2 /* libPods-cryptotrakrTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cryptotrakrTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		29833E336F1E45A59A8E55C2 /* CodePush.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		2A1F991B464341F795910834 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
-		2C021E1D1C6826FF7C03A0B7 /* libPods-cryptotrakr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cryptotrakr.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* cryptotrakr-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cryptotrakr-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* cryptotrakr-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cryptotrakr-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3297010D8BF093FCC4F2D081 /* Pods-cryptotrakrTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cryptotrakrTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cryptotrakrTests/Pods-cryptotrakrTests.debug.xcconfig"; sourceTree = "<group>"; };
 		43E23AE3E0884AABA1ADF5E3 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		46B7DCCB8BBA271018C4200E /* Pods-cryptotrakr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cryptotrakr.release.xcconfig"; path = "Pods/Target Support Files/Pods-cryptotrakr/Pods-cryptotrakr.release.xcconfig"; sourceTree = "<group>"; };
 		4DB29574001F492A8E31A778 /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
 		52C4F6FE33E34A4BAA4D3E22 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		59DCBCC954A9C59210F4FA11 /* libPods-cryptotrakrTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cryptotrakrTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		680E4DA3A0D9B50B55D8D1AE /* Pods-cryptotrakrTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cryptotrakrTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cryptotrakrTests/Pods-cryptotrakrTests.debug.xcconfig"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7C5D244868AE49BA802A2175 /* libRNSVG.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSVG.a; sourceTree = "<group>"; };
 		7DF43C962577475688C9C5E8 /* libRNI18n.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNI18n.a; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8452F048232045E79F302BF2 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
-		8D51E9C17FAA5551B12663CC /* Pods-cryptotrakr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cryptotrakr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cryptotrakr/Pods-cryptotrakr.debug.xcconfig"; sourceTree = "<group>"; };
 		96675EDB032545A4AAD2C58D /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		A08B69D07AF60962FA381A9A /* Pods-cryptotrakr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cryptotrakr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cryptotrakr/Pods-cryptotrakr.debug.xcconfig"; sourceTree = "<group>"; };
+		A3F393FAF036253F13DE148D /* Pods-cryptotrakrTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cryptotrakrTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cryptotrakrTests/Pods-cryptotrakrTests.release.xcconfig"; sourceTree = "<group>"; };
 		AC1F27FB36AE46898DCA6648 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		B8A8B905696A46F083A394D6 /* RNSVG.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
 		BB5AB4CF1B4442F3AFBDCF52 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		C100626E022249A9B02ED69C /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		CB89E9F31EFDA8C3003E2672 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CB89EA621EFDA96A003E2672 /* cryptotrakr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = cryptotrakr.entitlements; path = cryptotrakr/cryptotrakr.entitlements; sourceTree = "<group>"; };
+		CBC03EB51F0660A800E0E807 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		CBC03ED91F06615200E0E807 /* libRNFirebase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRNFirebase.a; path = "../../../../Library/Developer/Xcode/DerivedData/cryptotrakr-bxegqjpgnryvbaflqwhztkbolvvl/Build/Products/Debug-iphonesimulator/RNFirebase/libRNFirebase.a"; sourceTree = "<group>"; };
 		CC27B43F9BD34FCFA94C789B /* RNI18n.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNI18n.xcodeproj; path = "../node_modules/react-native-i18n/ios/RNI18n.xcodeproj"; sourceTree = "<group>"; };
-		E0F7EB199A1B241FE47A5E9C /* Pods-cryptotrakrTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cryptotrakrTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cryptotrakrTests/Pods-cryptotrakrTests.release.xcconfig"; sourceTree = "<group>"; };
+		DB7BCB98EC4AA62B0AAFEE68 /* libPods-cryptotrakr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cryptotrakr.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4D0ECBB46EF4D0F92CEBD3F /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		F7363215AACF41BABA2B69F5 /* libCodePush.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libCodePush.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -374,7 +374,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
-				372BEAE5E44E26B15870A32B /* libPods-cryptotrakrTests.a in Frameworks */,
+				61E03B2837F76E323E05CF56 /* libPods-cryptotrakrTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,13 +393,12 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				A2DFD441F7773F286DF326C6 /* libPods-cryptotrakr.a in Frameworks */,
 				DAC02FDD4EC14DD0B139EBD3 /* libCodePush.a in Frameworks */,
 				86B062C217084178AEE918F7 /* libz.tbd in Frameworks */,
-				857AA0AA9763499E943D2385 /* libRNFirebase.a in Frameworks */,
 				DD57F3F037EA4EB5ADB55710 /* libRNI18n.a in Frameworks */,
 				64E2AEAC7F0749EC8490EC06 /* libRNSVG.a in Frameworks */,
 				DA763ACB9ED546F68206CDA7 /* libRNVectorIcons.a in Frameworks */,
+				A7413F2525486B684A25EAE2 /* libPods-cryptotrakr.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +486,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		03162185A791618C0DECAAFE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A08B69D07AF60962FA381A9A /* Pods-cryptotrakr.debug.xcconfig */,
+				46B7DCCB8BBA271018C4200E /* Pods-cryptotrakr.release.xcconfig */,
+				680E4DA3A0D9B50B55D8D1AE /* Pods-cryptotrakrTests.debug.xcconfig */,
+				A3F393FAF036253F13DE148D /* Pods-cryptotrakrTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		139105B71AF99BAD00B5F7CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -535,17 +545,6 @@
 				CB89E9F21EFDA850003E2672 /* libdouble-conversion.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		57E17DDF71E55BB63AA0CBB2 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				8D51E9C17FAA5551B12663CC /* Pods-cryptotrakr.debug.xcconfig */,
-				20CAD8EE94FC90C06BE96BB5 /* Pods-cryptotrakr.release.xcconfig */,
-				3297010D8BF093FCC4F2D081 /* Pods-cryptotrakrTests.debug.xcconfig */,
-				E0F7EB199A1B241FE47A5E9C /* Pods-cryptotrakrTests.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		5E91572E1DD0AC6500FF2AA8 /* Products */ = {
@@ -606,9 +605,9 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* cryptotrakrTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
-				57E17DDF71E55BB63AA0CBB2 /* Pods */,
 				A0D4A1E9E8E2B78F51E5CC93 /* Frameworks */,
 				DB5E34998C8C4A6EA2303AB7 /* Resources */,
+				03162185A791618C0DECAAFE /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -628,9 +627,11 @@
 		A0D4A1E9E8E2B78F51E5CC93 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2C021E1D1C6826FF7C03A0B7 /* libPods-cryptotrakr.a */,
-				2772AA9A528B999939D9A4F2 /* libPods-cryptotrakrTests.a */,
+				CBC03ED91F06615200E0E807 /* libRNFirebase.a */,
+				CBC03EB51F0660A800E0E807 /* AdSupport.framework */,
 				0473651187B049BA91C052B7 /* libz.tbd */,
+				DB7BCB98EC4AA62B0AAFEE68 /* libPods-cryptotrakr.a */,
+				59DCBCC954A9C59210F4FA11 /* libPods-cryptotrakrTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -647,7 +648,7 @@
 			isa = PBXGroup;
 			children = (
 				CB89EA4D1EFDA921003E2672 /* libRNI18n.a */,
-				CB89EA4F1EFDA921003E2672 /* libRNI18n.a */,
+				CB89EA4F1EFDA921003E2672 /* libRNI18n-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -701,12 +702,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "cryptotrakrTests" */;
 			buildPhases = (
-				DFF5CD04B1F4C3D292ABE3B3 /* [CP] Check Pods Manifest.lock */,
+				0B986A130E6A249E2BF3376F /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				F181FF7910866DD6705CBB58 /* [CP] Embed Pods Frameworks */,
-				1736C0EFEE0CBBC8384362C8 /* [CP] Copy Pods Resources */,
+				29891B496FCADA2587FE1614 /* [CP] Embed Pods Frameworks */,
+				08DB3362CCA8A2385053AE0B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -722,13 +723,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "cryptotrakr" */;
 			buildPhases = (
-				31B81091B0F959BE6CCCF396 /* [CP] Check Pods Manifest.lock */,
+				51651CE281A0D2988828ACE6 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				34BAA9D8758D023CEFBCAA28 /* [CP] Embed Pods Frameworks */,
-				55FE86C6C42B2D2E704CA8A6 /* [CP] Copy Pods Resources */,
+				457449C20A442F118353AA72 /* [CP] Embed Pods Frameworks */,
+				C13364A3B5B14F4A1125CEA3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1101,10 +1102,10 @@
 			remoteRef = CB89EA4C1EFDA921003E2672 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		CB89EA4F1EFDA921003E2672 /* libRNI18n.a */ = {
+		CB89EA4F1EFDA921003E2672 /* libRNI18n-tvOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libRNI18n.a;
+			path = "libRNI18n-tvOS.a";
 			remoteRef = CB89EA4E1EFDA921003E2672 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1198,7 +1199,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
-		1736C0EFEE0CBBC8384362C8 /* [CP] Copy Pods Resources */ = {
+		08DB3362CCA8A2385053AE0B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1211,6 +1212,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cryptotrakrTests/Pods-cryptotrakrTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		0B986A130E6A249E2BF3376F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		29891B496FCADA2587FE1614 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cryptotrakrTests/Pods-cryptotrakrTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
@@ -1227,22 +1258,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
-		31B81091B0F959BE6CCCF396 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		34BAA9D8758D023CEFBCAA28 /* [CP] Embed Pods Frameworks */ = {
+		457449C20A442F118353AA72 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1257,22 +1273,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cryptotrakr/Pods-cryptotrakr-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		55FE86C6C42B2D2E704CA8A6 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cryptotrakr/Pods-cryptotrakr-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DFF5CD04B1F4C3D292ABE3B3 /* [CP] Check Pods Manifest.lock */ = {
+		51651CE281A0D2988828ACE6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1287,19 +1288,19 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		F181FF7910866DD6705CBB58 /* [CP] Embed Pods Frameworks */ = {
+		C13364A3B5B14F4A1125CEA3 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cryptotrakrTests/Pods-cryptotrakrTests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cryptotrakr/Pods-cryptotrakr-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1369,7 +1370,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3297010D8BF093FCC4F2D081 /* Pods-cryptotrakrTests.debug.xcconfig */;
+			baseConfigurationReference = 680E4DA3A0D9B50B55D8D1AE /* Pods-cryptotrakrTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1407,7 +1408,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E0F7EB199A1B241FE47A5E9C /* Pods-cryptotrakrTests.release.xcconfig */;
+			baseConfigurationReference = A3F393FAF036253F13DE148D /* Pods-cryptotrakrTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -1442,9 +1443,10 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8D51E9C17FAA5551B12663CC /* Pods-cryptotrakr.debug.xcconfig */;
+			baseConfigurationReference = A08B69D07AF60962FA381A9A /* Pods-cryptotrakr.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = cryptotrakr/cryptotrakr.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
@@ -1473,9 +1475,10 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 20CAD8EE94FC90C06BE96BB5 /* Pods-cryptotrakr.release.xcconfig */;
+			baseConfigurationReference = 46B7DCCB8BBA271018C4200E /* Pods-cryptotrakr.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = cryptotrakr/cryptotrakr.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4N9VKYBBZ6;

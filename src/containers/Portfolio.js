@@ -60,6 +60,7 @@ export default class Portfolio extends Component {
       splitEntry={this.props.split}
       sellEntry={this.props.sell}
       exchangeId={exchange}
+      portfolioEntries={this.props.portfolio.length}
     />
   )
 

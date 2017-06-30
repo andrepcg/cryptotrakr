@@ -13,7 +13,6 @@ target 'cryptotrakr' do
   end
 
   pod 'Firebase/Core'
-  pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
 
   # RNFirebase
   pod 'Firebase/AdMob'
@@ -21,7 +20,7 @@ target 'cryptotrakr' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Crash'
   pod 'Firebase/Database'
-  pod 'Firebase/DynamicLinks'
+  # pod 'Firebase/DynamicLinks'
   pod 'Firebase/Messaging'
 
   pod "Yoga", :path => "../node_modules/react-native/ReactCommon/yoga"
@@ -32,6 +31,7 @@ target 'cryptotrakr' do
   ]
 
   pod 'CodePush', :path => '../node_modules/react-native-code-push'
+  pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
 
 end
 
