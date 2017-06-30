@@ -88,19 +88,6 @@ export default class SplitPrompt extends PureComponent {
 
         <Text><Text style={styles.bold}>Original stack:</Text> {round(stackAmount - newStackAmount, 5)} {upperCrypto}</Text>
         <Text><Text style={styles.bold}>New stack:</Text> {newStackAmount} {upperCrypto}</Text>
-
-        {/*<Text>Alert me when the price is</Text>
-        <View style={styles.alertInline}>
-          <Text>than</Text>
-          <TextInput
-            onChangeText={this.handleNewAmountChange}
-            style={styles.alertTextInput}
-            keyboardType="numeric"
-            value={newStackAmount}
-            maxLength={7}
-          />
-          <Text>{currencySymbol(currency)}/{toUpper(crypto)}</Text>
-        </View>*/}
       </Prompt>
     );
   }

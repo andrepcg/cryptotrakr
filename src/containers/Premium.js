@@ -216,7 +216,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: 'rgba(0, 0, 0, 0.6)',
     top: 0,
     bottom: 0,
     right: 0,
@@ -225,7 +224,6 @@ const styles = StyleSheet.create({
   image: {
     width: 50,
     height: 50,
-    // flex: 1,
   },
   justify: {
     alignItems: 'center',
