@@ -62,3 +62,5 @@ export const freeLimits = {
   portfolio: 4,
 };
 
+export const FETCH_PRICES_INTERAVL = 2 * 60 * 1000; // 2 minutes
+

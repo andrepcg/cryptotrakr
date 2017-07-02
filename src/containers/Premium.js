@@ -11,7 +11,7 @@ import starImage from '../assets/start.png';
 import adsImage from '../assets/ads.png';
 
 // import { products } from '../config';
-import { purchaseProduct } from '../actions/purchases';
+import { purchaseProduct, purchaseProducts } from '../actions/purchases';
 
 import MyButton from '../components/Button';
 import { Banner, buildRequest } from '../firebase';
@@ -20,7 +20,7 @@ import { Banner, buildRequest } from '../firebase';
 @connect(({
   purchases: { noads, premium },
 }) => ({ noads, premium }),
-  { purchaseProduct },
+  { purchaseProduct, purchaseProducts },
 )
 export default class Premium extends PureComponent {
   static navigationOptions = {
@@ -32,6 +32,7 @@ export default class Premium extends PureComponent {
 
   static propTypes = {
     purchaseProduct: PropTypes.func,
+    purchaseProducts: PropTypes.func,
     noads: PropTypes.bool,
     premium: PropTypes.bool,
   }
@@ -171,7 +172,8 @@ export default class Premium extends PureComponent {
       await Billing.open();
       await Billing.loadOwnedPurchasesFromGoogle();
       const purchases = Billing.listOwnedProducts();
-      purchases.forEach(productId => this.props.purchaseProduct(productId));
+      // purchases.forEach(productId => this.props.purchaseProduct(productId));
+      this.props.purchaseProducts(purchases);
     } catch (err) {
       console.error(err);
     } finally {

@@ -1,5 +1,5 @@
 import React, { PureComponent, PropTypes } from 'react';
-import { View, StyleSheet, Text, TextInput, Platform, ToastAndroid, Alert } from 'react-native';
+import { View, StyleSheet, Text, TextInput, Platform, ToastAndroid } from 'react-native';
 import { connect } from 'react-redux';
 import RadioForm from 'react-native-simple-radio-button';
 import currencySymbol from 'currency-symbol-map';
@@ -75,16 +75,11 @@ export default class AlertPrompt extends PureComponent {
     return get(find(exchanges, { id: exchangeId }), 'name', '');
   }
 
-  render() {
-    const { currency, crypto, visible, closeAlertPrompt } = this.props;
+  renderLoggedIn() {
+    const { currency, crypto } = this.props;
     const { newAlertPriceValue } = this.state;
     return (
-      <Prompt
-        visible={visible}
-        close={closeAlertPrompt}
-        title="Create new price alert"
-        options={[{ label: 'Cancel' }, { label: 'Create', onPress: this.handleCreateAlert }]}
-      >
+      <View>
         <Text>Alert me when the price is</Text>
         <RadioForm
           radio_props={newAlertOptions}
@@ -106,6 +101,21 @@ export default class AlertPrompt extends PureComponent {
           <Text>{currencySymbol(currency)}/{toUpper(crypto)}</Text>
         </View>
         <Text>on <Text style={styles.bold}>{this.getExchangeName()}</Text></Text>
+      </View>
+    );
+  }
+
+  render() {
+    const { visible, closeAlertPrompt, uid } = this.props;
+    return (
+      <Prompt
+        visible={visible}
+        close={closeAlertPrompt}
+        title="Create new price alert"
+        options={[{ label: 'Cancel' }, { label: 'Create', onPress: this.handleCreateAlert }]}
+      >
+        {!uid && <Text>You are not logged in</Text>}
+        {uid && this.renderLoggedIn()}
       </Prompt>
     );
   }

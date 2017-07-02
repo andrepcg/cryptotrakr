@@ -2,13 +2,16 @@ import React, { PropTypes, Component } from 'react';
 import { BackHandler, NetInfo } from 'react-native';
 import { connect } from 'react-redux';
 import { addNavigationHelpers, NavigationActions } from 'react-navigation';
+import Billing from 'react-native-billing';
 
 import firebase, { sendNotificationToken, getNotificationToken } from '../firebase';
+import { FETCH_PRICES_INTERAVL } from '../config';
 
 import { connectionState } from '../actions/network';
 import { userLogin, userLoginSuccess, loginFailed } from '../actions/user';
 import { receiveNotification } from '../actions/notifications';
 import { fetchPrices } from '../actions/prices';
+import { purchaseProducts } from '../actions/purchases';
 
 import AppNavigator from '../navigators/AppNavigator';
 
@@ -36,6 +39,7 @@ export default class AppWithNavigationState extends Component {
     this.authFirebase();
     this.setupNotifications();
     this.fetchPricesInterval();
+    this.syncPurchases();
     this.interval = setInterval(this.fetchPricesInterval, 30 * 1000);
   }
 
@@ -46,17 +50,29 @@ export default class AppWithNavigationState extends Component {
   }
 
   setupNotifications() {
-    firebase.messaging().onMessage(this.handleNotification);
+    // firebase.messaging().onMessage(this.handleNotification);
     firebase.messaging().getInitialNotification().then(this.handleOpenApp);
+  }
+
+  syncPurchases = async () => {
+    if (!__DEV__) {
+      await Billing.close();
+      try {
+        await Billing.open();
+        await Billing.loadOwnedPurchasesFromGoogle();
+        const purchases = Billing.listOwnedProducts();
+        this.props.dispatch(purchaseProducts(purchases));
+      } catch (err) {
+        console.error(err);
+      } finally {
+        await Billing.close();
+      }
+    }
   }
 
   fetchPricesInterval = () => {
     const { lastReceiveTime, dispatch } = this.props;
-    const TWO_MINUTES = 2 * 60 * 1000;
-    if (((new Date()) - lastReceiveTime) > TWO_MINUTES) {
-      dispatch(fetchPrices());
-    }
-    else if (!lastReceiveTime) {
+    if (!lastReceiveTime || ((new Date()) - lastReceiveTime) > FETCH_PRICES_INTERAVL) {
       dispatch(fetchPrices());
     }
   }

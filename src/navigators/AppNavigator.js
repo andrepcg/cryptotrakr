@@ -12,10 +12,10 @@ import ExchangeScreen from '../containers/ExchangeScreen';
 import SettingsScreen from '../containers/Settings';
 import AlertsScreen from '../containers/Alerts';
 import AboutScreen from '../components/About';
+// import ChangelogScreen from '../components/Changelog';
 import PremiumScreen from '../containers/Premium';
 import Drawer from '../components/Drawer';
 import Button from '../components/Button';
-// import Header from '../components/MainScreen/Header';
 
 import { openAddPrompt } from '../actions/portfolio';
 
@@ -118,6 +118,7 @@ export default StackNavigator({
   Alerts: { screen: AlertsScreen },
   Exchange: { screen: ExchangeScreen },
   Premium: { screen: PremiumScreen },
+  // Changelog: { screen: ChangelogScreen },
   About: { screen: AboutScreen },
 }, {
   headerMode: 'screen',

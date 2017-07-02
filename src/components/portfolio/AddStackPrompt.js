@@ -38,8 +38,8 @@ export default class AddStackPrompt extends PureComponent {
 
   clearState() {
     return {
-      StackAmount: 0,
-      BoughtPrice: 0,
+      StackAmount: '',
+      BoughtPrice: '',
       editing: false,
       editingPrice: false,
       tempStackAmount: 0,

@@ -4386,9 +4386,9 @@ react-native-i18n@^2.0.2:
   dependencies:
     i18n-js "github:fnando/i18n-js#v3.0.0"
 
-react-native-modalbox@^1.3.11:
-  version "1.3.11"
-  resolved "https://registry.yarnpkg.com/react-native-modalbox/-/react-native-modalbox-1.3.11.tgz#e17b33d57749a8e483726efd7e57eec4a3c8d39a"
+react-native-modalbox@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-modalbox/-/react-native-modalbox-1.4.0.tgz#332f1d48c27c90cdde27ffa7f09fc8d18799a070"
 
 react-native-scrollable-tab-view@^0.6.7:
   version "0.6.7"
@@ -4683,9 +4683,9 @@ redux-persist-migrate@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/redux-persist-migrate/-/redux-persist-migrate-4.1.0.tgz#8da119f51a675644dd3a736891db5e883ad9f855"
 
-redux-persist@^4.8.1:
-  version "4.8.1"
-  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-4.8.1.tgz#5ea786437eb94870da7fd6ac2d8e3aed6be80e73"
+redux-persist@^4.8.2:
+  version "4.8.2"
+  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-4.8.2.tgz#7941202e0ce0a9fcc0263d66965f5263d34f43b9"
   dependencies:
     json-stringify-safe "^5.0.1"
     lodash "^4.17.4"

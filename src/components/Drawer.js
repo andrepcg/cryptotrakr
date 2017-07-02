@@ -62,6 +62,10 @@ export default function Drawer({ navigation }) {
           <Icon name="bug" size={25} />
           <Text style={styles.linkName}>Bug report</Text>
         </Button>
+        {/*<Button style={styles.link} onPressFunc={() => navigate('Changelog')} >
+          <Icon name="information-outline" size={25} />
+          <Text style={styles.linkName}>Changelog</Text>
+        </Button>*/}
         <Button style={styles.link} onPressFunc={() => navigate('About')} >
           <Icon name="information-outline" size={25} />
           <Text style={styles.linkName}>About</Text>
