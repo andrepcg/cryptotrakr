@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { BackHandler, NetInfo } from 'react-native';
+import { BackHandler, NetInfo, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { addNavigationHelpers, NavigationActions } from 'react-navigation';
 import Billing from 'react-native-billing';
@@ -55,7 +55,7 @@ export default class AppWithNavigationState extends Component {
   }
 
   syncPurchases = async () => {
-    if (!__DEV__) {
+    if (!__DEV__ && Platform.OS === 'android') {
       await Billing.close();
       try {
         await Billing.open();
