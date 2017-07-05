@@ -140,7 +140,7 @@ export default class Premium extends PureComponent {
           <Button
             style={styles.button}
             title={!noads ? `${noadsDetails.priceText}${noadsDetails.currency}` : 'Bought'}
-            onPress={() => !noads && this.purchase('noads')}
+            onPress={() => !noads && this.purchaseNoAds()}
             color={noads ? GREEN : null}
           />
         </MyButton>
@@ -154,7 +154,7 @@ export default class Premium extends PureComponent {
           <Button
             style={styles.button}
             title={!premium ? `${premiumDetails.priceText}${premiumDetails.currency}` : 'Bought'}
-            onPress={() => !premium && this.purchase('premium')}
+            onPress={() => !premium && this.purchasePremium()}
             color={premium ? GREEN : null}
           />
         </MyButton>
@@ -171,9 +171,12 @@ export default class Premium extends PureComponent {
     try {
       await Billing.open();
       await Billing.loadOwnedPurchasesFromGoogle();
-      const purchases = Billing.listOwnedProducts();
+      const purchases = await Billing.listOwnedProducts();
+      console.log('Purchases', purchases);
       // purchases.forEach(productId => this.props.purchaseProduct(productId));
-      this.props.purchaseProducts(purchases);
+      if (purchases && purchases.length > 0) {
+        this.props.purchaseProducts(purchases);
+      }
     } catch (err) {
       console.error(err);
     } finally {

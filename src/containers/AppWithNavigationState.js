@@ -60,8 +60,11 @@ export default class AppWithNavigationState extends Component {
       try {
         await Billing.open();
         await Billing.loadOwnedPurchasesFromGoogle();
-        const purchases = Billing.listOwnedProducts();
-        this.props.dispatch(purchaseProducts(purchases));
+        const purchases = await Billing.listOwnedProducts();
+        console.log('Purchases', purchases);
+        if (purchases && purchases.length > 0) {
+          this.props.dispatch(purchaseProducts(purchases));
+        }
       } catch (err) {
         console.error(err);
       } finally {
