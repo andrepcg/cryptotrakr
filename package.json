@@ -51,7 +51,7 @@
     "react-native": "0.45.1",
     "react-native-animatable": "^1.2.2",
     "react-native-billing": "^2.3.0",
-    "react-native-code-push": "^3.0.0-beta",
+    "react-native-code-push": "^3.0.1-beta",
     "react-native-firebase": "^2.0.0",
     "react-native-i18n": "^2.0.2",
     "react-native-modalbox": "^1.4.0",
