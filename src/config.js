@@ -33,21 +33,29 @@ export const pairs = [
   { id: 'ltcbtc', name: 'LTC/BTC', crypto: 'ltc' },
   { id: 'xrpeur', name: 'XRP/EUR', crypto: 'xrp' },
   { id: 'xrpusd', name: 'XRP/USD', crypto: 'xrp' },
-  // { id: 'xrpbtc', name: 'XRP/BTC' },
+  { id: 'dasheur', name: 'DASH/EUR', crypto: 'dash' },
+  { id: 'dashusd', name: 'DASH/USD', crypto: 'dash' },
+  { id: 'xmreur', name: 'XMR/EUR', crypto: 'xmr' },
+  { id: 'xmrusd', name: 'XMR/USD', crypto: 'xmr' },
+  { id: 'zeceur', name: 'ZEC/EUR', crypto: 'zec' },
+  { id: 'zecusd', name: 'ZEC/USD', crypto: 'zec' },
 ];
 
 
 export const cryptos = [
   { id: 'eth', name: 'ETH', longName: 'Ethereum', color: styles.DARKER_BLUE },
   { id: 'btc', name: 'BTC', longName: 'Bitcoin', color: styles.ORANGE },
-  { id: 'ltc', name: 'LTC', longName: 'Litecoin', color: styles.DARK_BLUE },
+  { id: 'ltc', name: 'LTC', longName: 'Litecoin', color: '#88CBF5' },
   { id: 'xrp', name: 'XRP', longName: 'Ripple', color: styles.GREEN },
+  { id: 'dash', name: 'DASH', longName: 'Dash', color: '#1c75bc' },
+  { id: 'xmr', name: 'XMR', longName: 'Monero', color: '#ff7519' },
+  { id: 'zec', name: 'ZEC', longName: 'Zcash', color: '#4a2256' },
 ];
 
 export const currencies = [
   { id: 'usd', name: 'USD' },
   { id: 'eur', name: 'EUR' },
-  // { id: 'gbp', name: 'GBP' },
+  { id: 'gbp', name: 'GBP' },
 ];
 
 export const products = [
