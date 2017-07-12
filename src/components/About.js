@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, StyleSheet, Text, Linking, Image } from 'react-native';
+import moment from 'moment';
 
 import { SUPER_DARKER_BLUE, darkHeader } from '../styles';
 import { appName } from '../config';
@@ -10,6 +11,8 @@ import ethereumLogo from '../img/ethereum-logo-white.png';
 import Button from './Button';
 
 import { purchaseProduct } from '../actions/purchases';
+
+import metadata from '../metadata.json';
 
 @connect()
 export default class About extends PureComponent {
@@ -50,6 +53,7 @@ export default class About extends PureComponent {
           <Text style={styles.white}>andrepcg.me</Text>
           <Text style={styles.white}>email@andrepcg.me</Text>
         </Button>
+        <Text style={styles.white}>Build: {metadata.build} ({moment(metadata.buildDate).format('YYYY/MM/DD HH:mm')})</Text>
       </View>
     );
   }

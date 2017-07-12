@@ -60,14 +60,14 @@ export const currencies = [
 
 export const products = [
   { id: 'beer', defaultValue: false },
-  { id: 'premium', defaultValue: Platform.OS === 'ios' },
+  { id: 'premium', defaultValue: false },
   { id: 'noads', defaultValue: false },
 ];
 
 export const freeLimits = {
-  alerts: 3,
-  favorites: 2,
-  portfolio: 4,
+  alerts: Platform.OS === 'ios' ? Infinity : 3,
+  favorites: Platform.OS === 'ios' ? Infinity : 2,
+  portfolio: Platform.OS === 'ios' ? Infinity : 4,
 };
 
 export const FETCH_PRICES_INTERAVL = 2 * 60 * 1000; // 2 minutes

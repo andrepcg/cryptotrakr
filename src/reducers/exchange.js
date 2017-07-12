@@ -1,20 +1,17 @@
-import { RECEIVE_OHLC, FETCHING_OHLC } from '../actions/prices';
+import { combineReducers } from 'redux';
+
+import { RECEIVE_OHLC, FETCHING_OHLC, FETCHING_LATEST_TRADES, RECEIVE_LATEST_TRADES } from '../actions/prices';
 import { OPEN_ALERT_PROMPT } from '../actions/alerts';
-import { OPEN_EXCHANGE, CHANGE_CURRENCY, CHANGE_PERIOD } from '../actions/exchange';
+import { OPEN_EXCHANGE, CHANGE_PERIOD } from '../actions/exchange';
 import { ONE_HOUR, timeframePeriod } from '../utils/timeframes';
 
 const initialState = {
-  isFetching: false,
-  lastReceiveTime: null,
-  ohlc: {},
-  currentPeriod: timeframePeriod[ONE_HOUR],
-  timeframe: ONE_HOUR,
   currentExchange: '',
   currentCrypto: '',
   currentCurrency: '',
 };
 
-export default function exchange(state = initialState, action) {
+function info(state = initialState, action) {
   switch (action.type) {
     case OPEN_EXCHANGE: {
       if (
@@ -32,17 +29,36 @@ export default function exchange(state = initialState, action) {
       return state;
     }
 
+    case OPEN_ALERT_PROMPT: {
+      if (action.payload) {
+        return { ...state, ...action.payload };
+      }
+      return state;
+    }
+
+    default:
+      return state;
+  }
+}
+
+const ohlcInitialState = {
+  data: {},
+  lastReceiveTime: null,
+  isFetching: false,
+  currentPeriod: timeframePeriod[ONE_HOUR],
+  timeframe: ONE_HOUR,
+};
+
+function ohlc(state = ohlcInitialState, action) {
+  switch (action.type) {
+    case OPEN_EXCHANGE:
+      return { ...ohlcInitialState };
+
     case CHANGE_PERIOD:
       return {
         ...state,
         currentPeriod: timeframePeriod[action.payload],
         timeframe: action.payload,
-      };
-
-    case CHANGE_CURRENCY:
-      return {
-        ...state,
-        currentCurrency: action.payload,
       };
 
     case FETCHING_OHLC:
@@ -53,19 +69,37 @@ export default function exchange(state = initialState, action) {
         ...state,
         isFetching: false,
         lastReceiveTime: new Date().getTime(),
-        ohlc: { ...state.prices, ...action.payload },
+        data: { ...action.payload },
       };
-
-    case OPEN_ALERT_PROMPT: {
-      if (action.payload) {
-        return { ...state, ...action.payload };
-      } else {
-        return state;
-      }
-    }
-
 
     default:
       return state;
   }
 }
+
+function lastTrades(state = { data: [], lastReceiveTime: null, isFetching: false }, action) {
+  switch (action.type) {
+    case OPEN_EXCHANGE:
+      return { data: [], lastReceiveTime: null, isFetching: false };
+
+    case FETCHING_LATEST_TRADES:
+      return { ...state, isFetching: true };
+
+    case RECEIVE_LATEST_TRADES:
+      return {
+        ...state,
+        isFetching: false,
+        lastReceiveTime: new Date().getTime(),
+        data: action.payload,
+      };
+
+    default:
+      return state;
+  }
+}
+
+export default combineReducers({
+  info,
+  ohlc,
+  lastTrades,
+});

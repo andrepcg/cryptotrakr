@@ -35,18 +35,13 @@ export default class PriceVolumeChart extends Component {
     ohlcPeriod: PropTypes.array,
     currencySymbol: PropTypes.string,
     timeframe: PropTypes.string,
+    lastReceiveTime: PropTypes.number,
+    isFetching: PropTypes.bool,
   };
 
   shouldComponentUpdate(nextProps) {
-    const { ohlcPeriod } = this.props;
-    if (
-      (!ohlcPeriod && nextProps.ohlcPeriod) ||
-      (ohlcPeriod && !nextProps.ohlcPeriod) ||
-      (!ohlcPeriod && !nextProps.ohlcPeriod) ||
-      (ohlcPeriod && nextProps.ohlcPeriod) ||
-      ohlcPeriod[0][0] !== nextProps.ohlcPeriod[0][0] ||
-      ohlcPeriod[ohlcPeriod.length - 1][0] !== nextProps.ohlcPeriod[nextProps.ohlcPeriod.length - 1][0]
-    ) {
+    const { isFetching, lastReceiveTime } = this.props;
+    if (isFetching !== nextProps.isFetching || lastReceiveTime !== nextProps.lastReceiveTime) {
       return true;
     }
     return false;
@@ -69,7 +64,7 @@ export default class PriceVolumeChart extends Component {
       maxVolume = maxBy(ohlcPeriod, e => e[5])[5] * 5;
     }
     return (
-      <View>
+      <View style={!ohlcPeriod ? styles.container : {}}>
         {ohlcPeriod
           ? <Svg width="100%" height={300} style={chartContainerStyle}>
             <G>
@@ -152,7 +147,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: DARK_BLUE,
+    height: 300,
   },
   loadingText: {
     color: 'white',

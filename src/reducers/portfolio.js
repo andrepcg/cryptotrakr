@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import { omit } from 'lodash';
+import { omit, without } from 'lodash';
 import { uuid } from '../utils/general';
-import { CREATE_ENTRY, DELETE_ENTRY, SPLIT_ENTRY, STACK_ENTRIES, SELL_ENTRY, DELETE_SALE, OPEN_ADD_PROMPT, CLOSE_ADD_PROMPT } from '../actions/portfolio';
+import { CREATE_ENTRY, DELETE_ENTRY, SPLIT_ENTRY, STACK_ENTRIES, SELL_ENTRY, DELETE_SALE, OPEN_ADD_PROMPT, CLOSE_ADD_PROMPT, ADD_STACK_TO_MERGE } from '../actions/portfolio';
 
 const initialState = {
   portfolio: {
@@ -19,6 +19,11 @@ const initialState = {
     // },
   },
   addPromptVisible: false,
+  stacking: {
+    isStacking: false,
+    stacksToMerge: [],
+    crypto: null,
+  },
 };
 
 function stackEntries(portfolio, idsArray) {
@@ -144,7 +149,32 @@ function addPromptVisible(state = false, action) {
   }
 }
 
+function stacking(state = initialState.stacking, action) {
+  switch (action.type) {
+    case ADD_STACK_TO_MERGE: {
+      let newStack;
+      if (state.stacksToMerge.includes(action.payload.id)) {
+        newStack = without(state.stacksToMerge, action.payload.id);
+      } else {
+        newStack = [...state.stacksToMerge, action.payload.id];
+      }
+      return {
+        isStacking: newStack.length > 0,
+        stacksToMerge: newStack,
+        crypto: action.payload.crypto,
+      };
+    }
+
+    case STACK_ENTRIES:
+      return { ...initialState.stacking };
+
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   portfolio,
   addPromptVisible,
+  stacking,
 });

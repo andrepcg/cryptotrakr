@@ -7,6 +7,7 @@ import numeral from 'numeral';
 import moment from 'moment';
 import currencySymbol from 'currency-symbol-map';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import CheckBox from 'react-native-check-box';
 
 import Button from '../Button';
 import SplitPrompt from './SplitPrompt';
@@ -31,10 +32,16 @@ export default class PortfolioCard extends PureComponent {
     splitEntry: PropTypes.func,
     exchangeId: PropTypes.string,
     portfolioEntries: PropTypes.number,
+    mergingEntry: PropTypes.bool,
+    mergingStacks: PropTypes.bool,
+    onStack: PropTypes.func,
+    mergingCrypto: PropTypes.string,
   };
 
   static defaultProps = {
     currentPrice: 1,
+    mergingEntry: false,
+    mergingStacks: false,
   }
 
   state = {
@@ -83,9 +90,14 @@ export default class PortfolioCard extends PureComponent {
     this.handleCloseSellPrompt();
   }
 
+  handleClickStack = () => {
+    const { id, crypto } = this.props;
+    this.props.onStack(id, crypto);
+  }
+
   render() {
     const { splitPromptOpen, sellPromptOpen } = this.state;
-    const { amount, boughtPrice, currency, crypto, timestamp, currentPrice, exchangeId } = this.props;
+    const { amount, boughtPrice, currency, crypto, timestamp, currentPrice, exchangeId, mergingEntry, mergingStacks, mergingCrypto } = this.props;
     const currentValue = amount * currentPrice;
     const appreciationAbsolute = currentPrice - boughtPrice;
     const changePercent = (appreciationAbsolute / boughtPrice) * 100;
@@ -135,6 +147,18 @@ export default class PortfolioCard extends PureComponent {
             <Button touchableOpacity onPressFunc={this.handleOpenSellPrompt}>
               <Icon style={styles.icon} name="currency-usd" size={25} />
             </Button>
+            {mergingStacks
+              ? (mergingCrypto === crypto &&
+                <CheckBox
+                  style={styles.icon}
+                  onClick={this.handleClickStack}
+                  isChecked={mergingEntry}
+                />
+              )
+              : <Button touchableOpacity onPressFunc={this.handleClickStack}>
+                <Icon style={styles.icon} name="call-merge" size={25} />
+              </Button>
+            }
             {this.props.portfolioEntries < freeLimits.portfolio &&
               <Button touchableOpacity onPressFunc={this.handleOpenSplitPrompt}>
                 <Icon style={styles.icon} name="call-split" size={25} />

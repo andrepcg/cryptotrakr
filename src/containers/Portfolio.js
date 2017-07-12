@@ -3,23 +3,24 @@ import PropTypes from 'prop-types';
 import { View, StyleSheet, FlatList, Text } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { filter, get, round, uniqBy } from 'lodash';
+import { filter, get, round, uniqBy, without } from 'lodash';
 import numeral from 'numeral';
 
 import { convertMoney } from '../utils/prices';
-import { create, deleteEntry, split, stack, sell } from '../actions/portfolio';
+import { create, deleteEntry, split, stack, sell, addStackToMerge } from '../actions/portfolio';
 
 import PortfolioCard from '../components/portfolio/PortfolioCard';
 import AddStackPrompt from '../components/portfolio/AddStackPrompt';
+import MergeStacks from '../components/MergeStacks';
 
 import { GREY, DARKER_BLUE, LIGHT_BLUE, BLUE } from '../styles';
 
 
 @connect(({
   prices: { markets },
-  portfolio: { portfolio },
-}) => ({ markets, portfolio: filter(portfolio, { positionOpened: true }) }),
-  { create, deleteEntry, split, stack, sell },
+  portfolio: { portfolio, stacking: { isStacking, stacksToMerge, crypto: stackingCrypto } },
+}) => ({ markets, portfolio: filter(portfolio, { positionOpened: true }), isStacking, stacksToMerge, stackingCrypto }),
+  { create, deleteEntry, split, stack, sell, addStackToMerge },
 )
 export default class Portfolio extends Component {
   static navigationOptions = () => ({
@@ -35,6 +36,10 @@ export default class Portfolio extends Component {
     split: PropTypes.func,
     stack: PropTypes.func,
     sell: PropTypes.func,
+    addStackToMerge: PropTypes.func,
+    isStacking: PropTypes.bool,
+    stacksToMerge: PropTypes.array,
+    stackingCrypto: PropTypes.string,
   };
 
   static defaultProps = {
@@ -61,6 +66,10 @@ export default class Portfolio extends Component {
       sellEntry={this.props.sell}
       exchangeId={exchange}
       portfolioEntries={this.props.portfolio.length}
+      onStack={this.props.addStackToMerge}
+      mergingStacks={this.props.isStacking}
+      mergingEntry={this.props.stacksToMerge.includes(id)}
+      mergingCrypto={this.props.stackingCrypto}
     />
   )
 
@@ -108,7 +117,13 @@ export default class Portfolio extends Component {
     );
   }
 
+  handleStack = () => {
+    const { stacksToMerge, stack } = this.props;
+    stack(stacksToMerge);
+  }
+
   render() {
+    const { isStacking, stacksToMerge } = this.props;
     return (
       <View style={styles.container}>
         <AddStackPrompt />
@@ -118,6 +133,7 @@ export default class Portfolio extends Component {
           renderItem={this._renderItem}
           keyExtractor={item => item.id}
         />
+        {isStacking && <MergeStacks stacksCount={stacksToMerge.length} stack={this.handleStack} />}
       </View>
     );
   }

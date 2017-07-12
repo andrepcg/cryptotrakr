@@ -29,6 +29,15 @@ export default function nav(state, action) {
       return AppNavigator.router.getStateForAction(navigationAction, state);
     }
 
+    // TODO
+    case 'TOGGLE_DRAWER': {
+      const a = {
+        type: 'Navigation/NAVIGATE',
+        routeName: state.routes[0].index === 0 ? 'DrawerOpen' : 'DrawerClose',
+      };
+      return AppNavigator.router.getStateForAction(a, state);
+    }
+
     default:
       nextState = AppNavigator.router.getStateForAction(action, state);
       break;

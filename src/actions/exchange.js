@@ -9,10 +9,5 @@ export const openExchange = (exchangeId, name, crypto, currency) => {
   return { type: OPEN_EXCHANGE, payload: { exchangeId, name, crypto, currency } };
 };
 
-export const changeCurrency = (currency) => {
-  logEvent('change_currency', { currency });
-  return { type: CHANGE_CURRENCY, payload: currency };
-};
-
 export const changePeriod = period =>
   ({ type: CHANGE_PERIOD, payload: period });

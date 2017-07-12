@@ -9,6 +9,7 @@ export const STACK_ENTRIES = 'STACK_ENTRIES';
 export const SELL_ENTRY = 'SELL_ENTRY';
 export const OPEN_ADD_PROMPT = 'OPEN_ADD_PROMPT';
 export const CLOSE_ADD_PROMPT = 'CLOSE_ADD_PROMPT';
+export const ADD_STACK_TO_MERGE = 'ADD_STACK_TO_MERGE';
 
 export const create = (amount, boughtPrice, currency, crypto, exchange) => ({
   type: CREATE_ENTRY,
@@ -38,3 +39,6 @@ export const openAddPrompt = () => (dispatch, getState) => {
 };
 
 export const closeAddPrompt = () => ({ type: CLOSE_ADD_PROMPT });
+
+export const addStackToMerge = (id, crypto) =>
+  ({ type: ADD_STACK_TO_MERGE, payload: { id, crypto } });

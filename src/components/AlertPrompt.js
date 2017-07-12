@@ -17,7 +17,7 @@ const newAlertOptions = [
 
 @connect(({
   alerts: { alertPromptOpen, alerts },
-  exchange: { currentCrypto, currentCurrency, currentExchange },
+  exchange: { info: { currentCrypto, currentCurrency, currentExchange } },
   prices: { markets },
   user: { uid },
 }) => ({ visible: alertPromptOpen, currency: currentCurrency, crypto: currentCrypto, exchangeId: currentExchange, markets, uid }),
@@ -60,8 +60,8 @@ export default class AlertPrompt extends PureComponent {
     if (!isNaN(newAlertPriceValue)) {
       createAlert(uid, exchangeId, currency, crypto, newAlertPriceValue, newAlertHigherValue).then(() => {
         if (Platform.OS === 'android') ToastAndroid.show('Alert created!', ToastAndroid.SHORT);
+        this.setState(this.clearState());
       });
-      this.setState(this.clearState());
     }
   }
 

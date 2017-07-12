@@ -88,11 +88,11 @@ export const MainNavigator = DrawerNavigator({
 export default StackNavigator({
   Main: {
     screen: MainNavigator,
-    navigationOptions: ({ navigation: { navigate } }) => ({
+    navigationOptions: ({ navigation: { navigate, dispatch } }) => ({
       title: appName,
       headerStyle: { backgroundColor: DARKER_BLUE, paddingLeft: 20, paddingRight: 20 },
       headerTitleStyle: { color: ALMOST_WHITE },
-      headerLeft: <Button touchableOpacity onPressFunc={() => navigate('DrawerOpen')}>
+      headerLeft: <Button touchableOpacity onPressFunc={() => dispatch({ type: 'TOGGLE_DRAWER' })}>
         <Icon name="menu" size={30} color="#fff" />
       </Button>,
       headerRight: <Button touchableOpacity onPressFunc={() => navigate('Alerts')}>

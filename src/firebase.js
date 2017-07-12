@@ -64,7 +64,14 @@ export const Banner = firebase.admob.Banner;
 export const AdRequest = firebase.admob.AdRequest;
 
 export const buildRequest = () => {
-  const request = new AdRequest();
-  request.addKeyword('cryptocurrency').addKeyword('bitcoin').addKeyword('ethereum').addKeyword('stocks').addKeyword('trading');
+  const request = new AdRequest()
+    .addKeyword('cryptocurrency')
+    .addKeyword('bitcoin')
+    .addKeyword('ethereum')
+    .addKeyword('stocks')
+    .addKeyword('investing')
+    .addKeyword('money')
+    .addKeyword('digital currency')
+    .addKeyword('trading');
   return request;
 };

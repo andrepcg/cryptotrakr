@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, StyleSheet, Text, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, ActivityIndicator, TouchableOpacity, ScrollView, RefreshControl } from 'react-native';
 
 import { connect } from 'react-redux';
 import { round, upperCase, toPairs, debounce } from 'lodash';
@@ -9,9 +9,11 @@ import currencySymbol from 'currency-symbol-map';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import tinycolor from 'tinycolor2';
 
+import { FETCH_PRICES_INTERAVL } from '../config';
+
 import { strings } from '../utils/timeframes';
 import { candleMean } from '../utils/prices';
-import { fetchOhlc, fetchPrices } from '../actions/prices';
+import { fetchOhlc, fetchLatestTrades, refreshExchangeData } from '../actions/prices';
 import { changePeriod } from '../actions/exchange';
 import { openAlertPrompt } from '../actions/alerts';
 
@@ -21,6 +23,7 @@ import { Banner, buildRequest } from '../firebase';
 import PriceVolumeChart from '../components/PriceVolumeChart';
 import AlertPrompt from '../components/AlertPrompt';
 import Button from '../components/Button';
+import LastTrades from '../components/LastTrades';
 
 function formatNumber(number) {
   const n = Math.abs(number) < 1e-6 ? 0.00000 : number;
@@ -35,14 +38,9 @@ const selectedPeriodColor = tinycolor(GREEN).darken(10).toString();
     purchases: { noads, premium },
     user: { uid },
     exchange: {
-      isFetching: isFetchingOhlc,
-      lastReceiveTime: lastOhlcReceiveTime,
-      ohlc,
-      currentPeriod,
-      currentExchange,
-      timeframe,
-      currentCrypto,
-      currentCurrency,
+      ohlc: { timeframe, data: ohlc, currentPeriod, lastReceiveTime: lastOhlcReceiveTime, isFetching: isFetchingOhlc },
+      lastTrades: { data: lastTrades, lastReceiveTime: lastTradesReceiveTime, isFetching: isFetchingLastTrades },
+      info: { currentExchange, currentCrypto, currentCurrency },
     },
   }) =>
   ({
@@ -57,8 +55,11 @@ const selectedPeriodColor = tinycolor(GREEN).darken(10).toString();
     uid,
     isPremium: premium,
     noAds: noads,
+    lastTrades,
+    lastTradesReceiveTime,
+    isFetchingLastTrades,
   }),
-  { fetchOhlc, fetchPrices, changePeriod },
+  { fetchOhlc, changePeriod, fetchLatestTrades, refreshExchangeData },
 )
 export default class ExchangeScreen extends Component {
   static propTypes = {
@@ -75,6 +76,11 @@ export default class ExchangeScreen extends Component {
     uid: PropTypes.string,
     isPremium: PropTypes.bool,
     noAds: PropTypes.bool,
+    fetchLatestTrades: PropTypes.func,
+    lastTrades: PropTypes.array,
+    lastTradesReceiveTime: PropTypes.number,
+    isFetchingLastTrades: PropTypes.bool,
+    refreshExchangeData: PropTypes.func,
   };
 
   static defaultProps = {
@@ -91,14 +97,19 @@ export default class ExchangeScreen extends Component {
   });
 
   componentDidMount() {
-    this.refeshPrices();
+    this.interval = setInterval(() => this.refeshPrices(true), 30 * 1000);
+    this.refeshPrices(true);
   }
 
   componentDidUpdate(prevProps) {
     const { currentPeriod, timeframe } = this.props;
     if (currentPeriod !== prevProps.currentPeriod || timeframe !== prevProps.timeframe) {
-      this.refeshPrices();
+      this.refeshPrices(false, true);
     }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   getLastPrice() {
@@ -120,9 +131,14 @@ export default class ExchangeScreen extends Component {
     if (period !== timeframe) changePeriod(period);
   }, 500, { leading: true, trailing: false });
 
-  refeshPrices() {
-    const { fetchOhlc, currentExchange, currentPeriod, timeframe, currentCurrency, currentCrypto } = this.props;
-    fetchOhlc(currentExchange, currentCurrency, currentCrypto, currentPeriod, timeframe);
+  refeshPrices = (updateTrades = false, forceUpdate = false) => {
+    const { currentExchange, currentPeriod, timeframe, currentCurrency, currentCrypto } = this.props;
+    const { lastOhlcReceiveTime } = this.props;
+    if (forceUpdate || (!lastOhlcReceiveTime || ((new Date()) - lastOhlcReceiveTime) > FETCH_PRICES_INTERAVL)) {
+      // this.props.refreshExchangeData();
+      this.props.fetchOhlc(currentExchange, currentCurrency, currentCrypto, currentPeriod, timeframe);
+      if (updateTrades) this.props.fetchLatestTrades(currentExchange, currentCurrency, currentCrypto);
+    }
   }
 
   renderLoading() {
@@ -190,7 +206,9 @@ export default class ExchangeScreen extends Component {
         </View>
 
         <View style={styles.multiline}>
-          <Text style={styles.priceText}>{`${changeAbsolute > 0 ? '+' : ''}${currencySymbol(currentCurrency)}${formatNumber(changeAbsolute)}`}</Text>
+          <Text style={styles.priceText}>
+            {`${changeAbsolute > 0 ? '+' : ''}${currencySymbol(currentCurrency)}${formatNumber(changeAbsolute)}`}
+          </Text>
           <Text style={styles.subtitle}>Since {strings[timeframe]} ago ({upperCase(currentCurrency)})</Text>
         </View>
       </View>
@@ -198,29 +216,44 @@ export default class ExchangeScreen extends Component {
   }
 
   render() {
-    const { ohlc, timeframe, currentCurrency, isPremium, noAds } = this.props;
+    const { ohlc, timeframe, currentCurrency, isPremium, noAds, isFetchingOhlc, lastOhlcReceiveTime } = this.props;
+    const { isFetchingLastTrades, lastTradesReceiveTime, lastTrades } = this.props;
 
     return (
       <View style={styles.container}>
-        <AlertPrompt lastPrice={this.getLastPrice()} />
-        {this.renderPrice()}
-        {this.renderPeriodSelector()}
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={isFetchingOhlc}
+              onRefresh={this.refeshPrices}
+            />
+          }
+        >
+          <AlertPrompt lastPrice={this.getLastPrice()} />
+          {this.renderPrice()}
+          {this.renderPeriodSelector()}
 
-        <PriceVolumeChart
-          ohlcPeriod={ohlc}
-          currencySymbol={currencySymbol(currentCurrency)}
-          timeframe={timeframe}
-        />
+          <PriceVolumeChart
+            ohlcPeriod={ohlc}
+            currencySymbol={currencySymbol(currentCurrency)}
+            timeframe={timeframe}
+            lastReceiveTime={lastOhlcReceiveTime}
+            isFetching={isFetchingOhlc}
+          />
 
-        {this.renderLoading()}
-
+          <LastTrades
+            isFetching={isFetchingLastTrades}
+            lastReceiveTime={lastTradesReceiveTime}
+            trades={lastTrades}
+            currencySymbol={currencySymbol(currentCurrency)}
+          />
+        </ScrollView>
         {!isPremium && !noAds &&
           <Banner
             unitId="ca-app-pub-3886797449668157/4225712378"
             request={buildRequest().build()}
           />
         }
-
       </View>
     );
   }
