@@ -40,20 +40,12 @@ export default class About extends PureComponent {
       <View style={styles.container}>
         <Image source={ethereumLogo} />
         <Text style={styles.logo}>{appName}</Text>
-        {/*<View style={styles.justify}>
-          <Text style={styles.white}>
-            <Text style={styles.me}>ETH:</Text> 0xc77ab15Ac49aE679028eDa9BEa6db6645aC3b587
-          </Text>
-          <Text style={styles.white}>
-            <Text style={styles.me}>BTC:</Text> 32KXmd73oRymV7Np3RkDG8xQQTkP5Sg4GX
-          </Text>
-        </View>*/}
         <Button onPressFunc={this.openLink} onLongPressFunc={this.disableAds} style={styles.justify}>
           <Text style={[styles.white, styles.me]}>André Perdigão</Text>
           <Text style={styles.white}>andrepcg.me</Text>
           <Text style={styles.white}>email@andrepcg.me</Text>
         </Button>
-        <Text style={styles.white}>Build: {metadata.build} ({moment(metadata.buildDate).format('YYYY/MM/DD HH:mm')})</Text>
+        <Text style={styles.white}>Build: {metadata.build} ({moment(Number(metadata.buildDate)).format('YYYY/MM/DD HH:mm')})</Text>
       </View>
     );
   }

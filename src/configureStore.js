@@ -33,7 +33,7 @@ export default function configureStore(onPersist) {
   persistStore(
     store,
     {
-      blacklist: ['nav', 'user', 'network', 'portfolio.stacking'],
+      blacklist: ['nav', 'user', 'network'],
       storage: AsyncStorage,
       transforms: [
         stackingBlacklisted,
