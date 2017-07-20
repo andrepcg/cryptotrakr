@@ -25,8 +25,8 @@ class setup extends Component {
     }
   }
 
-  onHydrate = (err, restoredState) => {
-    const { locale } = restoredState.settings;
+  onHydrate = (err, restoredState = {}) => {
+    const { locale } = restoredState.settings || {};
     if (locale) I18n.locale = locale;
     this.setState({ hydrated: true });
   }
