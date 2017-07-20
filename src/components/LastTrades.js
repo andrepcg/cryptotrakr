@@ -8,6 +8,7 @@ import tinycolor from 'tinycolor2';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { convertMoney } from '../utils/prices';
+import I18n from '../translations';
 
 
 import { DARKER_BLUE, ALMOST_WHITE } from '../styles';
@@ -73,7 +74,7 @@ export default class LastTrades extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>TRADES</Text>
+        <Text style={styles.title}>{I18n.t('trades')}</Text>
         <View style={styles.list}>
           {isFetching &&
             <ActivityIndicator

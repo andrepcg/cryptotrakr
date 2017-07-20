@@ -12,6 +12,7 @@ import Button from './Button';
 import { GREEN, RED, ALMOST_WHITE, YELLOW, TRANSPARENT } from '../styles';
 
 import { exchanges } from '../config';
+import I18n from '../translations';
 
 function formatNumber(number) {
   const n = Math.abs(number) < 1e-6 ? 0.00000 : number;
@@ -106,9 +107,9 @@ export default class Exchange extends PureComponent {
 
           <View style={styles.info}>
             <Text style={styles.title}>{this.getExchangeName()}</Text>
-            <Text style={styles.infoFont}><Text style={styles.bold}>High: </Text>{currencySymbol(currency)}{formatNumber(high)}</Text>
-            <Text style={styles.infoFont}><Text style={styles.bold}>Low: </Text>{currencySymbol(currency)}{formatNumber(low)}</Text>
-            <Text style={styles.infoFont}><Text style={styles.bold}>Volume: </Text>{numeral(volume).format('0a')} {currencySymbol(crypto)}</Text>
+            <Text style={styles.infoFont}><Text style={styles.bold}>{I18n.t('high')} </Text>{currencySymbol(currency)}{formatNumber(high)}</Text>
+            <Text style={styles.infoFont}><Text style={styles.bold}>{I18n.t('low')} </Text>{currencySymbol(currency)}{formatNumber(low)}</Text>
+            <Text style={styles.infoFont}><Text style={styles.bold}>{I18n.t('volume')} </Text>{numeral(volume).format('0a')} {currencySymbol(crypto)}</Text>
           </View>
         </View>
 

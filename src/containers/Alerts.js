@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { createAlert, editAlert, removeAlert, fetchAlerts } from '../actions/alerts';
 import { Banner, buildRequest } from '../firebase';
+import I18n from '../translations';
 
 import Button from '../components/Button';
 import { exchanges } from '../config';
@@ -30,7 +31,7 @@ const showInfo = () => {
 )
 export default class Alerts extends PureComponent {
   static navigationOptions = {
-    title: 'Alerts',
+    title: I18n.t('alerts'),
     ...darkHeader,
     headerRight: <Button touchableOpacity onPressFunc={showInfo}>
       <Icon name="help-circle" size={30} color="#fff" style={{ padding: 10 }} />
@@ -76,7 +77,7 @@ export default class Alerts extends PureComponent {
 
   showError = (e) => {
     Alert.alert(
-      'An error occured',
+      I18n.t('alertError'),
       e,
       [{ text: 'OK' }],
     );
@@ -85,12 +86,12 @@ export default class Alerts extends PureComponent {
   removeAlert = (id) => {
     const { removeAlert, uid } = this.props;
     Alert.alert(
-      'Remove alert',
-      'Do you want to remove this alert?',
+      I18n.t('removeAlertTitle'),
+      I18n.t('removeAlertConfirmation'),
       [
-        { text: 'Cancel', style: 'cancel' },
+        { text: I18n.t('cancel'), style: 'cancel' },
         {
-          text: 'Remove',
+          text: I18n.t('remove'),
           onPress: () => removeAlert(uid, id).catch(this.showError),
         },
       ],
@@ -106,7 +107,7 @@ export default class Alerts extends PureComponent {
           <View>
             <Text style={styles.alertTitle}>{exhangeName} {toUpper(`${crypto}/${currency}`)}</Text>
             <Text style={styles.alertSubtitle}>
-              {`When price is ${isHigher ? '≥' : '≤'} ${currencySymbol(currency)}${numeral(value).format('0,0.00')}`}
+              {`${I18n.t('alertWhen')} ${isHigher ? '≥' : '≤'} ${currencySymbol(currency)}${numeral(value).format('0,0.00')}`}
             </Text>
           </View>
           <View>

@@ -3,6 +3,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import moment from 'moment';
 
 import { ORANGE, RED } from '../styles';
+import I18n from '../translations';
 
 export default class LastUpdate extends PureComponent {
   static propTypes = {
@@ -28,15 +29,15 @@ export default class LastUpdate extends PureComponent {
   renderIsConnected() {
     const { lastUpdate, isFetching } = this.props;
     return isFetching
-      ? <Text style={styles.bold}>Last update: Fetching data...</Text>
-      : <Text style={styles.bold}>Last update: {!lastUpdate
-          ? 'Never'
+      ? <Text style={styles.bold}>{I18n.t('lastUpdateFetching')}</Text>
+      : <Text style={styles.bold}>{I18n.t('lastUpdate')} {!lastUpdate
+          ? I18n.t('never')
           : moment(lastUpdate).fromNow()
           }
       </Text>;
   }
 
-  render() {
+  render() {3
     const { isConnected } = this.props;
     return (
       <View
@@ -46,7 +47,7 @@ export default class LastUpdate extends PureComponent {
         <Text style={styles.font}>
           {isConnected
             ? this.renderIsConnected()
-            : <Text style={[styles.bold, styles.offline]}>{'Offline'}</Text>
+            : <Text style={[styles.bold, styles.offline]}>{I18n.t('offline')}</Text>
           }
         </Text>
       </View>

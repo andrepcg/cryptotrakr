@@ -4,6 +4,7 @@ import currencySymbol from 'currency-symbol-map';
 import { toUpper, round, clamp } from 'lodash';
 
 import Prompt from '../Prompt';
+import I18n from '../../translations';
 
 const MINMAX_PERCENT = 0.01;
 const minValue = value => round(value * MINMAX_PERCENT, 5);
@@ -81,12 +82,12 @@ export default class SellPrompt extends PureComponent {
       <Prompt
         visible={visible}
         close={closePrompt}
-        title="Sell portfolio stack"
-        options={[{ label: 'Cancel' }, { label: 'Sell', onPress: this.handleSell }]}
+        title={I18n.t('sellPrompt.title')}
+        options={[{ label: I18n.t('cancel'), type: 'cancel' }, { label: I18n.t('sellPrompt.sell'), onPress: this.handleSell }]}
       >
-        <Text><Text style={styles.bold}>Available:</Text> {stackAmount} {upperCrypto}</Text>
+        <Text><Text style={styles.bold}>{I18n.t('sellPrompt.available')}</Text> {stackAmount} {upperCrypto}</Text>
         <View style={styles.inputInline}>
-          <Text style={styles.bold}>Amount to sell:</Text>
+          <Text style={styles.bold}>{I18n.t('sellPrompt.amount')}</Text>
           <TextInput
             placeholder={String(sellAmount)}
             onEndEditing={this.handleSellAmountInputEnd}
@@ -101,7 +102,7 @@ export default class SellPrompt extends PureComponent {
         </View>
 
         <View style={styles.inputInline}>
-          <Text style={styles.bold}>Sell price:</Text>
+          <Text style={styles.bold}>{I18n.t('sellPrompt.price')}</Text>
           <TextInput
             onEndEditing={this.handleSellPriceInputEnd}
             style={styles.alertTextInput}

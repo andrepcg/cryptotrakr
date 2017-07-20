@@ -17,6 +17,7 @@ import { GREEN, RED, ALMOST_WHITE } from '../../styles';
 
 import { formatAmount } from '../../utils/general';
 import { exchanges, freeLimits } from '../../config';
+import I18n from '../../translations';
 
 export default class PortfolioCard extends PureComponent {
   static propTypes = {
@@ -52,12 +53,12 @@ export default class PortfolioCard extends PureComponent {
   handleDelete = () => {
     const { id, deleteEntry } = this.props;
     Alert.alert(
-      'Delete stack',
-      'Do you want to delete this portfolio entry?',
+      I18n.t('portfolioCard.deleteStack'),
+      I18n.t('portfolioCard.deleteDescription'),
       [
-        { text: 'Cancel', style: 'cancel' },
+        { text: I18n.t('cancel'), style: 'cancel' },
         {
-          text: 'Delete',
+          text: I18n.t('delete'),
           onPress: () => deleteEntry(id),
         },
       ],
@@ -127,9 +128,9 @@ export default class PortfolioCard extends PureComponent {
             <Text style={styles.title}>
               {`${amount} ${toUpper(crypto)} ${currencySymbol(crypto)}`}
             </Text>
-            <Text><Text style={styles.bold}>Worth:</Text> {`${symbol}${formatAmount(currentValue)}`}</Text>
-            <Text><Text style={styles.bold}>Bought price:</Text> {symbol}{boughtPrice} /{toUpper(crypto)}</Text>
-            <Text><Text style={styles.bold}>Bought value:</Text> {symbol}{formatAmount(boughtPrice * amount)}</Text>
+            <Text><Text style={styles.bold}>{I18n.t('portfolioCard.worth')}</Text> {`${symbol}${formatAmount(currentValue)}`}</Text>
+            <Text><Text style={styles.bold}>{I18n.t('portfolioCard.boughtPrice')}</Text> {symbol}{boughtPrice} /{toUpper(crypto)}</Text>
+            <Text><Text style={styles.bold}>{I18n.t('portfolioCard.boughtValue')}</Text> {symbol}{formatAmount(boughtPrice * amount)}</Text>
             {exchange && <Text><Text style={styles.bold}>Exchange:</Text> {exchange.name}</Text>}
           </View>
           <View>

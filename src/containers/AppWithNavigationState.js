@@ -30,7 +30,7 @@ export default class AppWithNavigationState extends Component {
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', () => {
       const { dispatch, nav } = this.props;
-      if (nav.index === 0) return false;
+      if (nav.routes[0].routes[0].index === 0) return false;
       dispatch(NavigationActions.back());
       return true;
     });

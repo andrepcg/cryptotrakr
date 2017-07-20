@@ -24,8 +24,8 @@ export default class Prompt extends PureComponent {
 
   renderOptions() {
     const { options } = this.props;
-    return options.map(({ label, onPress }) => (
-      <TouchableOpacity style={styles.footerButton} key={label} onPress={label === 'Cancel' ? this.close : onPress}>
+    return options.map(({ label, onPress, type }) => (
+      <TouchableOpacity style={styles.footerButton} key={label} onPress={type === 'cancel' ? this.close : onPress}>
         <Text style={styles.footerText}>{label.toUpperCase()}</Text>
       </TouchableOpacity>
     ));

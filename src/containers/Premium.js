@@ -12,6 +12,7 @@ import adsImage from '../assets/ads.png';
 
 // import { products } from '../config';
 import { purchaseProduct, purchaseProducts } from '../actions/purchases';
+import I18n from '../translations';
 
 import MyButton from '../components/Button';
 import { Banner, buildRequest } from '../firebase';
@@ -24,7 +25,7 @@ import { Banner, buildRequest } from '../firebase';
 )
 export default class Premium extends PureComponent {
   static navigationOptions = {
-    title: 'Premium',
+    title: I18n.t('premium'),
     ...darkHeader,
     headerTruncatedBackTitle: null,
     headerBackTitle: null,
@@ -81,7 +82,7 @@ export default class Premium extends PureComponent {
     } finally {
       if (details && details.purchaseState === 'PurchasedSuccessfully') {
         if (consume) await Billing.consumePurchase(productId);
-        Alert.alert('Thanks for your purchase!', 'Your support is very welcomed, you\'re making future development possible :)');
+        Alert.alert(I18n.t('thanksPurchase'), I18n.t('thanksDescription'));
         if (onPurchase) onPurchase();
       }
       await Billing.close();
@@ -139,7 +140,7 @@ export default class Premium extends PureComponent {
           </View>
           <Button
             style={styles.button}
-            title={!noads ? `${noadsDetails.priceText}${noadsDetails.currency}` : 'Bought'}
+            title={!noads ? `${noadsDetails.priceText}${noadsDetails.currency}` : I18n.t('bought')}
             onPress={() => !noads && this.purchaseNoAds()}
             color={noads ? GREEN : null}
           />
@@ -153,7 +154,7 @@ export default class Premium extends PureComponent {
           </View>
           <Button
             style={styles.button}
-            title={!premium ? `${premiumDetails.priceText}${premiumDetails.currency}` : 'Bought'}
+            title={!premium ? `${premiumDetails.priceText}${premiumDetails.currency}` : I18n.t('bought')}
             onPress={() => !premium && this.purchasePremium()}
             color={premium ? GREEN : null}
           />
@@ -163,7 +164,7 @@ export default class Premium extends PureComponent {
   }
 
   renderProductsIos() {
-    return <Text>No products available</Text>;
+    return <Text>{I18n.t('noProducts')}</Text>;
   }
 
   restorePurchases = async () => {
@@ -192,7 +193,7 @@ export default class Premium extends PureComponent {
         <View style={styles.restore}>
           <Button
             style={styles.button}
-            title={'Restore purchases'}
+            title={I18n.t('restorePurchases')}
             onPress={this.restorePurchases}
           />
         </View>

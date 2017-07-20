@@ -5,6 +5,7 @@ import CodePush from 'react-native-code-push';
 import App from './containers/AppWithNavigationState';
 import LoadingScreen from './components/Loading';
 import configureStore from './configureStore';
+import I18n from './translations';
 
 class setup extends Component {
 
@@ -15,13 +16,19 @@ class setup extends Component {
   }
 
   componentDidMount() {
-    this.store = configureStore(() => this.setState({ hydrated: true }));
+    this.store = configureStore(this.onHydrate);
 
     if (!__DEV__) {
       CodePush.sync({ updateDialog: false, installMode: CodePush.InstallMode.IMMEDIATE },
         this.codePushStatusDidChange,
       );
     }
+  }
+
+  onHydrate = (err, restoredState) => {
+    const { locale } = restoredState.settings;
+    I18n.locale = locale;
+    this.setState({ hydrated: true });
   }
 
   codePushStatusDidChange = (status) => {

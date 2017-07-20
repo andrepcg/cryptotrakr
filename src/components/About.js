@@ -11,13 +11,14 @@ import ethereumLogo from '../img/ethereum-logo-white.png';
 import Button from './Button';
 
 import { purchaseProduct } from '../actions/purchases';
+import I18n from '../translations';
 
 import metadata from '../metadata.json';
 
 @connect()
 export default class About extends PureComponent {
   static navigationOptions = {
-    title: 'About',
+    title: I18n.t('about'),
     ...darkHeader,
     headerTruncatedBackTitle: null,
     headerBackTitle: null,
@@ -36,6 +37,7 @@ export default class About extends PureComponent {
   }
 
   render() {
+    const buildDate = moment(metadata.buildTimestamp);
     return (
       <View style={styles.container}>
         <Image source={ethereumLogo} />
@@ -45,7 +47,7 @@ export default class About extends PureComponent {
           <Text style={styles.white}>andrepcg.me</Text>
           <Text style={styles.white}>email@andrepcg.me</Text>
         </Button>
-        <Text style={styles.white}>Build: {metadata.build} ({moment(Number(metadata.buildDate)).format('YYYY/MM/DD HH:mm')})</Text>
+        <Text style={styles.white}>Build: {metadata.build} ({buildDate.format('YYYY/MM/DD HH:mm')})</Text>
       </View>
     );
   }

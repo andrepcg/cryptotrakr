@@ -78,9 +78,17 @@ const PortfolioTabs = TabNavigator({
   },
 });
 
-const ApplianceStackNavigator = StackNavigator({
+
+export const MainNavigator = DrawerNavigator({
+  Main: { screen: Tabs },
+}, {
+  contentComponent: props => <Drawer {...props} />,
+  drawerWidth: 270,
+});
+
+export default StackNavigator({
   Main: {
-    screen: Tabs,
+    screen: MainNavigator,
     navigationOptions: ({ navigation: { navigate, dispatch } }) => ({
       title: appName,
       headerStyle: { backgroundColor: DARKER_BLUE, paddingLeft: 20, paddingRight: 20 },
@@ -114,14 +122,5 @@ const ApplianceStackNavigator = StackNavigator({
   // Changelog: { screen: ChangelogScreen },
   About: { screen: AboutScreen },
 }, {
-  initialRouteName: 'Main',
   headerMode: 'screen',
-});
-
-export default DrawerNavigator({
-  ApplianceStackNavigator: { screen: ApplianceStackNavigator },
-}, {
-  initialRouteName: 'ApplianceStackNavigator',
-  contentComponent: props => <Drawer {...props} />,
-  drawerWidth: 270,
 });

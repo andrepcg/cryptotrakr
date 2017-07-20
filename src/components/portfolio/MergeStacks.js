@@ -1,8 +1,9 @@
 import React, { PureComponent, PropTypes } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 
-import { SUPER_DARKER_BLUE, ORANGE } from '../styles';
-import Button from './Button';
+import { SUPER_DARKER_BLUE, ORANGE } from '../../styles';
+import Button from './../Button';
+import I18n from '../../translations';
 
 export default class MergeStacks extends PureComponent {
   static propTypes = {
@@ -18,11 +19,9 @@ export default class MergeStacks extends PureComponent {
     const { stacksCount, stack } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.font}>
-          Merging {stacksCount} stacks
-        </Text>
+        <Text style={styles.font}>{I18n.t('mergingStacks', { qtd: stacksCount })}</Text>
         {stacksCount > 1 && <Button touchableOpacity onPressFunc={stack}>
-          <Text style={[styles.font, styles.bold, { color: ORANGE }]}>Join</Text>
+          <Text style={[styles.font, styles.bold, { color: ORANGE }]}>{I18n.t('join')}</Text>
         </Button>}
       </View>
     );

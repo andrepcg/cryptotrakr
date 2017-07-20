@@ -7,12 +7,13 @@ import { toUpper, find, get } from 'lodash';
 
 import { exchanges, freeLimits } from '../config';
 import Prompt from './Prompt';
+import I18n from '../translations';
 
 import { createAlert, closeAlertPrompt } from '../actions/alerts';
 
 const newAlertOptions = [
-  { label: 'Higher (≥)', value: true },
-  { label: 'Lower (≤)', value: false },
+  { label: I18n.t('higher'), value: true },
+  { label: I18n.t('lower'), value: false },
 ];
 
 @connect(({
@@ -80,7 +81,7 @@ export default class AlertPrompt extends PureComponent {
     const { newAlertPriceValue } = this.state;
     return (
       <View>
-        <Text>Alert me when the price is</Text>
+        <Text>{I18n.t('alertTooltip')}</Text>
         <RadioForm
           radio_props={newAlertOptions}
           formHorizontal
@@ -89,7 +90,7 @@ export default class AlertPrompt extends PureComponent {
           style={styles.alertRadioForm}
         />
         <View style={styles.alertInline}>
-          <Text>than</Text>
+          <Text>{I18n.t('than')}</Text>
           <TextInput
             placeholder={String(this.getLastPrice())}
             onChangeText={this.handleNewAlertValueChange}
@@ -100,7 +101,7 @@ export default class AlertPrompt extends PureComponent {
           />
           <Text>{currencySymbol(currency)}/{toUpper(crypto)}</Text>
         </View>
-        <Text>on <Text style={styles.bold}>{this.getExchangeName()}</Text></Text>
+        <Text>{I18n.t('on')} <Text style={styles.bold}>{this.getExchangeName()}</Text></Text>
       </View>
     );
   }
@@ -111,10 +112,10 @@ export default class AlertPrompt extends PureComponent {
       <Prompt
         visible={visible}
         close={closeAlertPrompt}
-        title="Create new price alert"
-        options={[{ label: 'Cancel' }, { label: 'Create', onPress: this.handleCreateAlert }]}
+        title={I18n.t('createAlert')}
+        options={[{ label: I18n.t('cancel'), type: 'cancel' }, { label: I18n.t('create'), onPress: this.handleCreateAlert }]}
       >
-        {!uid && <Text>You are not logged in</Text>}
+        {!uid && <Text>{I18n.t('notLoggedIn')}</Text>}
         {uid && this.renderLoggedIn()}
       </Prompt>
     );

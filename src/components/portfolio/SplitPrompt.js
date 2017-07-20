@@ -6,6 +6,7 @@ import { toUpper, round, throttle } from 'lodash';
 import { DARK_BLUE } from '../../styles';
 // import { exchanges } from '../config';
 import Prompt from './../Prompt';
+import I18n from '../../translations';
 
 const MINMAX_PERCENT = 0.01;
 const maxValue = value => round(value * (1 - MINMAX_PERCENT), 5);
@@ -67,10 +68,10 @@ export default class SplitPrompt extends PureComponent {
       <Prompt
         visible={visible}
         close={closePrompt}
-        title={`Splitting ${stackAmount} ${upperCrypto} stack`}
-        options={[{ label: 'Cancel' }, { label: 'Split', onPress: this.handleSplit }]}
+        title={I18n.t('splitPrompt.title', { stackAmount, upperCrypto })}
+        options={[{ label: I18n.t('cancel'), type: 'cancel' }, { label: I18n.t('splitPrompt.split'), onPress: this.handleSplit }]}
       >
-        <Text>Create a new stack with <Text style={styles.bold}>{newStackAmount} {upperCrypto}</Text></Text>
+        <Text>{I18n.t('splitPrompt.create')} <Text style={styles.bold}>{newStackAmount} {upperCrypto}</Text></Text>
         <Slider
           onValueChange={this.liveSliderUpdater}
           onSlidingComplete={this.handleNewAmountChange}
@@ -86,8 +87,8 @@ export default class SplitPrompt extends PureComponent {
           {percentButtons.map(v => <Button key={v} color={DARK_BLUE} onPress={() => this.handlePercentChange(v)} title={`${v * 100}%`} />)}
         </View>
 
-        <Text><Text style={styles.bold}>Original stack:</Text> {round(stackAmount - newStackAmount, 5)} {upperCrypto}</Text>
-        <Text><Text style={styles.bold}>New stack:</Text> {newStackAmount} {upperCrypto}</Text>
+        <Text><Text style={styles.bold}>{I18n.t('splitPrompt.original')}</Text> {round(stackAmount - newStackAmount, 5)} {upperCrypto}</Text>
+        <Text><Text style={styles.bold}>{I18n.t('splitPrompt.new')}</Text> {newStackAmount} {upperCrypto}</Text>
       </Prompt>
     );
   }

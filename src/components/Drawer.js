@@ -9,6 +9,7 @@ import ethereumLogo from '../img/ethereum-logo-white.png';
 import { DARKER_BLUE } from '../styles';
 
 import { BUGS_EMAIL } from '../config';
+import I18n from '../translations';
 
 
 export default function Drawer({ navigation }) {
@@ -28,7 +29,7 @@ export default function Drawer({ navigation }) {
   };
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <View
         style={styles.toolbar}
         elevation={6}
@@ -38,11 +39,15 @@ export default function Drawer({ navigation }) {
       <ScrollView>
         <Button style={styles.link} onPressFunc={() => navigate('Portfolio')}>
           <Icon name="wallet" size={25} />
-          <Text style={styles.linkName}>Portfolio</Text>
+          <Text style={styles.linkName}>{I18n.t('portfolio')}</Text>
         </Button>
         <Button style={styles.link} onPressFunc={() => navigate('Alerts')}>
           <Icon name="bell-outline" size={25} />
-          <Text style={styles.linkName}>Alerts</Text>
+          <Text style={styles.linkName}>{I18n.t('alerts')}</Text>
+        </Button>
+        <Button style={styles.link} onPressFunc={() => navigate('Settings')}>
+          <Icon name="settings" size={25} />
+          <Text style={styles.linkName}>{I18n.t('settings')}</Text>
         </Button>
         {/*<Button style={styles.link} onPressFunc={showUnavailable} >
           <Icon name="settings" size={25} />
@@ -51,16 +56,16 @@ export default function Drawer({ navigation }) {
         {Platform.OS === 'android' &&
           <Button style={styles.link} onPressFunc={() => navigate('Premium')} >
             <Icon name="cart-outline" size={25} />
-            <Text style={styles.linkName}>Premium</Text>
+            <Text style={styles.linkName}>{I18n.t('premium')}</Text>
           </Button>
         }
         <Button style={styles.link} onPressFunc={openLink} >
           <Icon name="beer" size={25} />
-          <Text style={styles.linkName}>Buy me a beer!</Text>
+          <Text style={styles.linkName}>{I18n.t('buyBeer')}</Text>
         </Button>
         <Button style={styles.link} onPressFunc={openMailBugReport} >
           <Icon name="bug" size={25} />
-          <Text style={styles.linkName}>Bug report</Text>
+          <Text style={styles.linkName}>{I18n.t('bugReport')}</Text>
         </Button>
         {/*<Button style={styles.link} onPressFunc={() => navigate('Changelog')} >
           <Icon name="information-outline" size={25} />
@@ -68,7 +73,7 @@ export default function Drawer({ navigation }) {
         </Button>*/}
         <Button style={styles.link} onPressFunc={() => navigate('About')} >
           <Icon name="information-outline" size={25} />
-          <Text style={styles.linkName}>About</Text>
+          <Text style={styles.linkName}>{I18n.t('about')}</Text>
         </Button>
       </ScrollView>
     </View>

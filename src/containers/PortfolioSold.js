@@ -5,11 +5,13 @@ import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { filter, round } from 'lodash';
 import numeral from 'numeral';
+import currencySymbol from 'currency-symbol-map';
 
 
 import { BLUE } from '../styles';
 import { deleteSale } from '../actions/portfolio';
 import { convertMoney } from '../utils/prices';
+import I18n from '../translations';
 
 import PortfolioSaleCard from '../components/portfolio/PortfolioSaleCard';
 
@@ -17,12 +19,13 @@ import PortfolioSaleCard from '../components/portfolio/PortfolioSaleCard';
   {
     prices: { markets },
     portfolio: { portfolio },
-  }) => ({ markets, portfolio: filter(portfolio, { positionOpened: false }) }),
+    settings: { defaultCurrency },
+  }) => ({ defaultCurrency, markets, portfolio: filter(portfolio, { positionOpened: false }) }),
   { deleteSale },
 )
 export default class PortfolioSold extends Component {
   static navigationOptions = () => ({
-    tabBarLabel: 'Closed',
+    tabBarLabel: I18n.t('closed'),
     tabBarIcon: ({ tintColor }) => <Icon name="wallet" size={20} color={tintColor} />,
   });
 
@@ -30,6 +33,7 @@ export default class PortfolioSold extends Component {
     markets: PropTypes.object,
     portfolio: PropTypes.array,
     deleteSale: PropTypes.func,
+    defaultCurrency: PropTypes.string,
   };
 
   static defaultProps = {
@@ -56,17 +60,18 @@ export default class PortfolioSold extends Component {
   );
 
   calcStats = (entriesArray) => {
+    const { defaultCurrency } = this.props;
     const results = {
       rentability: 0,
       totalFiat: {
         eur: 0,
-        eurConverted: 0,
+        converted: 0,
         usd: 0,
         gbp: 0,
       },
       profit: {
         eur: 0,
-        eurConverted: 0,
+        converted: 0,
         usd: 0,
         gbp: 0,
       },
@@ -75,12 +80,12 @@ export default class PortfolioSold extends Component {
     entriesArray.forEach((entry) => {
       const { currency, amount, boughtPrice, sellPrice } = entry;
       results.totalFiat[currency] += amount * boughtPrice;
-      results.totalFiat.eurConverted += convertMoney(amount * boughtPrice, currency, 'EUR');
+      results.totalFiat.converted += convertMoney(amount * boughtPrice, currency, defaultCurrency);
       const changePercent = ((sellPrice - boughtPrice) / boughtPrice);
       results.rentability += changePercent;
 
       results.profit[currency] += amount * (sellPrice - boughtPrice);
-      results.profit.eurConverted += convertMoney(amount * (sellPrice - boughtPrice), currency, 'eur');
+      results.profit.converted += convertMoney(amount * (sellPrice - boughtPrice), currency, defaultCurrency);
     });
 
     results.rentability = round((results.rentability / entriesArray.length) * 100, 2) || 0;
@@ -88,22 +93,24 @@ export default class PortfolioSold extends Component {
   }
 
   renderStats() {
+    const { defaultCurrency } = this.props;
     const { rentability, totalFiat, profit } = this.calcStats(this.props.portfolio);
+    const symbol = currencySymbol(defaultCurrency);
     return (
       <View style={styles.stats} elevation={2}>
         <View style={styles.multiline}>
           <Text style={styles.content}>{`${rentability >= 100.0 ? '+' : ''}${rentability}%`}</Text>
-          <Text style={styles.subtitle}>Avg. rentability</Text>
+          <Text style={styles.subtitle}>{I18n.t('avgRentability')}</Text>
         </View>
 
         <View style={styles.multiline}>
-          <Text style={styles.content}>€{numeral(totalFiat.eurConverted).format('0,0.00')}</Text>
-          <Text style={styles.subtitle}>Amount invested (€)</Text>
+          <Text style={styles.content}>{symbol}{numeral(totalFiat.converted).format('0,0.00')}</Text>
+          <Text style={styles.subtitle}>{I18n.t('amtInvested', { symbol })}</Text>
         </View>
 
         <View style={styles.multiline}>
-          <Text style={styles.content}>€{numeral(profit.eurConverted).format('0,0.00')}</Text>
-          <Text style={styles.subtitle}>Profit (€)</Text>
+          <Text style={styles.content}>{symbol}{numeral(profit.converted).format('0,0.00')}</Text>
+          <Text style={styles.subtitle}>{I18n.t('profit', { symbol })}</Text>
         </View>
       </View>
     );

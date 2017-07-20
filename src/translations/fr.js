@@ -49,38 +49,4 @@ export default {
     defaultCurrency: 'Moeda preferida',
     defaultCurrencySub: 'Converte valores do portfólio para a moeda escolhida',
   },
-  worth: 'Apreciação actual ({{symbol}})',
-  delete: 'Apagar',
-  portfolioCard: {
-    deleteStack: 'Apagar stack',
-    deleteDescription: 'Queres apagar esta entrada do portfolio?',
-    worth: 'Apreciação:',
-    boughtPrice: 'Preço de compra:',
-    boughtValue: 'Valor da compra:',
-  },
-  portfolioSaleCard: {
-    deleteSale: 'Apagar venda',
-    deleteDescription: 'Queres apagar esta venda?',
-    saleValue: 'Valor da venda:',
-    salePrice: 'Preço de venda:',
-  },
-  sellPrompt: {
-    title: 'Vender entrada de portfolio',
-    available: 'Disponível:',
-    amount: 'Qtd. a vender:',
-    price: 'Preço de venda:',
-    sell: 'Vender',
-  },
-  splitPrompt: {
-    title: 'Dividindo {{stackAmount}} {{upperCrypto}}',
-    create: 'Criar nova stack com',
-    original: 'Stack original:',
-    new: 'Nova stack:',
-    split: 'Dividir',
-  },
-  stackPrompt: {
-    title: 'Criar stack de portfolio',
-    marketPrice: 'Preço de mercado:',
-    amount: 'Quantidade:',
-  },
 };

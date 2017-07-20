@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import tinycolor from 'tinycolor2';
 
 import { FETCH_PRICES_INTERAVL } from '../config';
+import I18n from '../translations';
 
 import { strings } from '../utils/timeframes';
 import { candleMean } from '../utils/prices';
@@ -197,19 +198,19 @@ export default class ExchangeScreen extends Component {
       <View style={styles.price}>
         <View style={styles.multiline}>
           <Text style={styles.priceText}>{`${currencySymbol(currentCurrency)}${formatNumber(lastPriceAvg)}`}</Text>
-          <Text style={styles.subtitle}>Price</Text>
+          <Text style={styles.subtitle}>{I18n.t('price')}</Text>
         </View>
 
         <View style={styles.multiline}>
           <Text style={styles.priceText}>{`${changePercent > 0 ? '+' : ''}${round(changePercent, 2)}%`}</Text>
-          <Text style={styles.subtitle}>Since {strings[timeframe]} ago (%)</Text>
+          <Text style={styles.subtitle}>{I18n.t('since', { period: strings[timeframe], symbol: '%' })}</Text>
         </View>
 
         <View style={styles.multiline}>
           <Text style={styles.priceText}>
             {`${changeAbsolute > 0 ? '+' : ''}${currencySymbol(currentCurrency)}${formatNumber(changeAbsolute)}`}
           </Text>
-          <Text style={styles.subtitle}>Since {strings[timeframe]} ago ({upperCase(currentCurrency)})</Text>
+          <Text style={styles.subtitle}>{I18n.t('since', { period: strings[timeframe], symbol: upperCase(currentCurrency) })}</Text>
         </View>
       </View>
     );

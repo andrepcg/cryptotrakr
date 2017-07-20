@@ -56,6 +56,22 @@ export const currencies = [
   { id: 'usd', name: 'USD' },
   { id: 'eur', name: 'EUR' },
   { id: 'gbp', name: 'GBP' },
+  { id: 'jpy', name: 'JPY' },
+  { id: 'chf', name: 'CHF' },
+  { id: 'cad', name: 'CAD' },
+  { id: 'aud', name: 'AUD' },
+  { id: 'hkd', name: 'HKD' },
+  { id: 'inr', name: 'INR' },
+  { id: 'cny', name: 'CNY' },
+  { id: 'pln', name: 'PLN' },
+  { id: 'rub', name: 'RUB' },
+  { id: 'sek', name: 'SEK' },
+];
+
+export const languages = [
+  { id: 'en', name: 'English' },
+  { id: 'hi', name: 'Hindi' },
+  { id: 'pt', name: 'Portuguese' },
 ];
 
 export const products = [

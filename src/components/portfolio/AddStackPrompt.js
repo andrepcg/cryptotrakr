@@ -8,6 +8,7 @@ import { exchanges, cryptos, currencies, freeLimits } from '../../config';
 import Button from '../Button';
 import Prompt from '../Prompt';
 import { openAddPrompt, create, closeAddPrompt } from '../../actions/portfolio';
+import I18n from '../../translations';
 
 const cryptosActionSheetOptions = [...cryptos.map(c => c.name), 'Cancel'];
 const currenciesActionSheetOptions = [...currencies.map(c => c.name), 'Cancel'];
@@ -144,13 +145,11 @@ export default class AddStackPrompt extends PureComponent {
         </Picker>
       );
     }
-    else {
-      return (
-        <Button onPressFunc={this.openCurrenciesActionSheet}>
-          <Text>{toUpper(currency)}</Text>
-        </Button>
-      );
-    }
+    return (
+      <Button onPressFunc={this.openCurrenciesActionSheet}>
+        <Text>{toUpper(currency)}</Text>
+      </Button>
+    );
   }
 
   openExchangesActionSheet = () => {
@@ -179,13 +178,11 @@ export default class AddStackPrompt extends PureComponent {
         </Picker>
       );
     }
-    else {
-      return (
-        <Button onPressFunc={this.openExchangesActionSheet}>
-          <Text>{find(exchanges, { id: exchange }).name}</Text>
-        </Button>
-      );
-    }
+    return (
+      <Button onPressFunc={this.openExchangesActionSheet}>
+        <Text>{find(exchanges, { id: exchange }).name}</Text>
+      </Button>
+    );
   }
 
   render() {
@@ -197,11 +194,11 @@ export default class AddStackPrompt extends PureComponent {
       <Prompt
         visible={visible}
         close={closeAddPrompt}
-        title="Create portfolio stack"
-        options={[{ label: 'Cancel' }, { label: 'Create', onPress: this.handleCreate }]}
+        title={I18n.t('stackPrompt.title')}
+        options={[{ label: I18n.t('cancel'), type: 'cancel' }, { label: I18n.t('create'), onPress: this.handleCreate }]}
       >
         <View style={styles.inputInline}>
-          <Text style={styles.bold}>Amount:</Text>
+          <Text style={styles.bold}>{I18n.t('stackPrompt.amount')}</Text>
           <TextInput
             onEndEditing={this.handleStackAmountInputEnd}
             style={styles.alertTextInput}
@@ -216,7 +213,7 @@ export default class AddStackPrompt extends PureComponent {
         </View>
 
         <View style={styles.inputInline}>
-          <Text style={styles.bold}>Market price:</Text>
+          <Text style={styles.bold}>{I18n.t('stackPrompt.marketPrice')}</Text>
           <TextInput
             onEndEditing={this.handleBoughtPriceInputEnd}
             style={styles.alertTextInput}

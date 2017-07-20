@@ -14,6 +14,7 @@ import { GREEN, RED, ALMOST_WHITE } from '../../styles';
 
 import { formatAmount } from '../../utils/general';
 import { exchanges } from '../../config';
+import I18n from '../../translations';
 
 export default class PortfolioSaleCard extends PureComponent {
   static propTypes = {
@@ -34,12 +35,12 @@ export default class PortfolioSaleCard extends PureComponent {
   handleDelete = () => {
     const { id, deleteSale } = this.props;
     Alert.alert(
-      'Delete stack',
-      'Do you want to delete this sale?',
+      I18n.t('portfolioSaleCard.deleteSale'),
+      I18n.t('portfolioSaleCard.deleteDescription'),
       [
-        { text: 'Cancel', style: 'cancel' },
+        { text: I18n.t('cancel'), style: 'cancel' },
         {
-          text: 'Delete',
+          text: I18n.t('delete'),
           // onPress: () => deleteSale(id),
           onPress: () => deleteSale(id, true),
         },
@@ -66,10 +67,10 @@ export default class PortfolioSaleCard extends PureComponent {
             <Text style={styles.title}>
               {`${amount} ${toUpper(crypto)} ${currencySymbol(crypto)}`}
             </Text>
-            <Text><Text style={styles.bold}>Sale value:</Text> {`${symbol}${formatAmount(sellValue)}`}</Text>
-            <Text><Text style={styles.bold}>Sale price:</Text> {symbol}{sellPrice} /{toUpper(crypto)}</Text>
-            <Text><Text style={styles.bold}>Bought price:</Text> {symbol}{boughtPrice} /{toUpper(crypto)}</Text>
-            <Text><Text style={styles.bold}>Bought value:</Text> {symbol}{formatAmount(boughtPrice * amount)}</Text>
+            <Text><Text style={styles.bold}>{I18n.t('portfolioSaleCard.saleValue')}</Text> {`${symbol}${formatAmount(sellValue)}`}</Text>
+            <Text><Text style={styles.bold}>{I18n.t('portfolioSaleCard.salePrice')}</Text> {symbol}{sellPrice} /{toUpper(crypto)}</Text>
+            <Text><Text style={styles.bold}>{I18n.t('portfolioCard.boughtPrice')}</Text> {symbol}{boughtPrice} /{toUpper(crypto)}</Text>
+            <Text><Text style={styles.bold}>{I18n.t('portfolioCard.boughtValue')}</Text> {symbol}{formatAmount(boughtPrice * amount)}</Text>
             {exchange && <Text><Text style={styles.bold}>Exchange:</Text> {exchange.name}</Text>}
           </View>
           <View>
