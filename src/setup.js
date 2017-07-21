@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import CodePush from 'react-native-code-push';
+import { get } from 'lodash';
 
 import App from './containers/AppWithNavigationState';
 import LoadingScreen from './components/Loading';
@@ -11,7 +12,7 @@ class setup extends Component {
 
   state = {
     hydrated: false,
-    codepushLoaded: __DEV__ ? true : false,
+    codepushLoaded: __DEV__,
     codepushStatus: null,
   }
 
@@ -26,7 +27,7 @@ class setup extends Component {
   }
 
   onHydrate = (err, restoredState = {}) => {
-    const { locale } = restoredState.settings || {};
+    const locale = get(restoredState, 'settings.locale');
     if (locale) I18n.locale = locale;
     this.setState({ hydrated: true });
   }
@@ -58,7 +59,7 @@ class setup extends Component {
       ? <Provider store={this.store}>
         <App />
       </Provider>
-      : <LoadingScreen message={codepushStatus}/>;
+      : <LoadingScreen message={codepushStatus} />;
   }
 }
 

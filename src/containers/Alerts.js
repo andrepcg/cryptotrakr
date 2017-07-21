@@ -77,7 +77,7 @@ export default class Alerts extends PureComponent {
 
   showError = (e) => {
     Alert.alert(
-      I18n.t('alertError'),
+      I18n.t('alertsContainer.alertError'),
       e,
       [{ text: 'OK' }],
     );
@@ -86,8 +86,8 @@ export default class Alerts extends PureComponent {
   removeAlert = (id) => {
     const { removeAlert, uid } = this.props;
     Alert.alert(
-      I18n.t('removeAlertTitle'),
-      I18n.t('removeAlertConfirmation'),
+      I18n.t('alertsContainer.removeAlertTitle'),
+      I18n.t('alertsContainer.removeAlertConfirmation'),
       [
         { text: I18n.t('cancel'), style: 'cancel' },
         {
@@ -107,7 +107,7 @@ export default class Alerts extends PureComponent {
           <View>
             <Text style={styles.alertTitle}>{exhangeName} {toUpper(`${crypto}/${currency}`)}</Text>
             <Text style={styles.alertSubtitle}>
-              {`${I18n.t('alertWhen')} ${isHigher ? '≥' : '≤'} ${currencySymbol(currency)}${numeral(value).format('0,0.00')}`}
+              {`${I18n.t('alertsContainer.alertWhen')} ${isHigher ? '≥' : '≤'} ${currencySymbol(currency)}${numeral(value).format('0,0.00')}`}
             </Text>
           </View>
           <View>
@@ -124,7 +124,7 @@ export default class Alerts extends PureComponent {
   renderEmpty() {
     return (
       <View style={styles.empty}>
-        <Text>No alerts</Text>
+        <Text>{I18n.t('alertsContainer.noalerts')}</Text>
       </View>
     );
   }
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: 100,
   },
 });
 

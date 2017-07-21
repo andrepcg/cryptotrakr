@@ -27,6 +27,16 @@ const analyticsMiddleware = store => next => (action) => {
       break;
     }
 
+    case 'SET_LOCALE': {
+      logEvent('set_locale', { locale: action.payload });
+      break;
+    }
+
+    case 'SET_CURRENCY': {
+      logEvent('set_currency', { currency: action.payload });
+      break;
+    }
+
     default:
       break;
   }

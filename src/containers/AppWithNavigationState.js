@@ -3,6 +3,7 @@ import { BackHandler, NetInfo, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { addNavigationHelpers, NavigationActions } from 'react-navigation';
 import Billing from 'react-native-billing';
+import { get } from 'lodash';
 
 import firebase, { sendNotificationToken, getNotificationToken } from '../firebase';
 import { FETCH_PRICES_INTERAVL } from '../config';
@@ -30,7 +31,7 @@ export default class AppWithNavigationState extends Component {
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', () => {
       const { dispatch, nav } = this.props;
-      if (nav.routes[0].routes[0].index === 0) return false;
+      if (get(nav, 'nav.routes[0].routes[0].index', 0) === 0) return false;
       dispatch(NavigationActions.back());
       return true;
     });

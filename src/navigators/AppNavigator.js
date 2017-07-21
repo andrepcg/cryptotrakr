@@ -111,7 +111,6 @@ const ApplianceStackNavigator = StackNavigator({
   Alerts: { screen: AlertsScreen },
   Exchange: { screen: ExchangeScreen },
   Premium: { screen: PremiumScreen },
-  // Changelog: { screen: ChangelogScreen },
   About: { screen: AboutScreen },
 }, {
   initialRouteName: 'Main',

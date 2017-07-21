@@ -2,10 +2,14 @@ import { filter, mean, toUpper } from 'lodash';
 import money from 'money';
 
 import { fetchExchangeRates } from './api';
+import rates from '../rates.json';
 
 fetchExchangeRates().then((json) => {
   money.rates = json.rates;
   money.base = json.base;
+}).catch(() => {
+  money.rates = rates.rates;
+  money.base = rates.base;
 });
 
 export function filterOhlcData(apiData) {

@@ -29,7 +29,6 @@ export default function nav(state, action) {
       return AppNavigator.router.getStateForAction(navigationAction, state);
     }
 
-    // TODO
     case 'TOGGLE_DRAWER': {
       const a = {
         type: 'Navigation/NAVIGATE',
